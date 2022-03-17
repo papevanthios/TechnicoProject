@@ -1,6 +1,7 @@
 package gr.codehub.accenture.technicoproject.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -9,6 +10,12 @@ public class TechnicoController {
     // attributes for services
 
     // endpoint home maria
+
+    @GetMapping(value="/home")
+    public String home(){
+        return "home page";
+    }
+
 
     // property owner create maria
 
