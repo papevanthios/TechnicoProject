@@ -27,4 +27,12 @@ public class PropertyOwner {
 
     @OneToOne
     private Property property;
+
+//    public static PropertyOwner createPropertyOwner(Object owner) {
+//        return null;
+//    }
+//
+//    public static PropertyOwner searchPropertyOwner(Object owner) {
+//        return null;
+//    }
 }

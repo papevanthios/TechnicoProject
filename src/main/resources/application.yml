@@ -6,6 +6,6 @@ spring:
     url: jdbc:sqlserver://localhost:1433;databaseName=technicoDb;
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
-    password: password
+    password: admin!@#123
 server:
   port: 8001
