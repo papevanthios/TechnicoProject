@@ -41,6 +41,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- klian: min, max, size, not null, pattern -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- below there are extra dependencies that might need to be deleted in the future -->
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>

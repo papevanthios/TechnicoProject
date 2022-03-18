@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#added by hand manthos suggestion for .idea
+.idea/**
+**/src/resources/application.yml
