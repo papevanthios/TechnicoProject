@@ -1,17 +1,19 @@
 package gr.codehub.accenture.technicoproject.controller;
 
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
+import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class PropertyOwnerController {
+    private PropertyOwnerService propertyOwnerService;
 
     // property owner create maria
     @PostMapping(value="/propertyOwner")
-    public PropertyOwner create(@RequestBody PropertyOwner propertyOwner) {
-        return propertyOwner;
+    public PropertyOwner createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
+        return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 
     // property owner search1 maria
@@ -20,11 +22,13 @@ public class PropertyOwnerController {
         return null;
     }
 
+//    We must create a new search by email, the url cannot recognise the difference with the search by vat
+
     // property owner search2 maria
-    @GetMapping(value = "/propertyOwner/{propertyOwnerEmail}")//for now return null (services need to be done first)
-    public  PropertyOwner searchByEmail(@PathVariable("propertyOwnerEmail") int propertyOwnerEmail){
-        return null;
-    }
+//    @GetMapping(value = "/propertyOwner/{propertyOwnerEmail}")//for now return null (services need to be done first)
+//    public  PropertyOwner searchByEmail(@PathVariable("propertyOwnerEmail") int propertyOwnerEmail){
+//        return null;
+//    }
 
     // property owner update aris
 

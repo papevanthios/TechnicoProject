@@ -15,7 +15,7 @@ import java.util.Date;
 public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long caseId;
+    private Integer caseId;
 
     private LocalDateTime dateOfRegistrationOrder;
 

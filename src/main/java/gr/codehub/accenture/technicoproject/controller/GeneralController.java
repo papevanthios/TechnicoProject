@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GeneralController {
 
     // endpoint home maria
-    @GetMapping(value="/")
+    @GetMapping(value="")
     public String home(){
         return "home page";
     }
