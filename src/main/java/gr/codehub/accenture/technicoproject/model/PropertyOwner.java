@@ -1,20 +1,22 @@
 package gr.codehub.accenture.technicoproject.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
-@Entity
 @Data
+@Entity
 public class PropertyOwner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
-    @Column(unique=true)// To ensure a field value is unique you can write
-    @Size(min=9, max=9)// specific format for VAT with 9 digits
+//    @Column(unique=true)// To ensure a field value is unique you can write
+//    @Size(min=9, max=9)// specific format for VAT with 9 digits
     private int vatNumber;
 
     private String firstName;
@@ -23,7 +25,7 @@ public class PropertyOwner {
 
     private String address;
 
-    @Size(min=10, max=10) // specific format for phoneNumber with 10 digits
+//    @Size(min=10, max=10) // specific format for phoneNumber with 10 digits
     private String phoneNumber;
 
     private String email;// we need a format constraint here @ and dot
@@ -32,6 +34,6 @@ public class PropertyOwner {
 
     private String password;
 
-    @OneToOne
-    private Property property;
+//    @OneToOne
+//    private Property property;
 }

@@ -1,13 +1,11 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=technicoDb;
+    url: jdbc:sqlserver://localhost:1433;databaseName=technicoDatabase;
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
-    password: reallyStrongPwd123
-#  reallyStrongPwd123 (Aris)
-#  admin!@#123 (Manthos, Maria, Kostas)
+    password: password
 server:
   port: 8001
