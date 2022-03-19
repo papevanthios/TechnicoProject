@@ -21,7 +21,7 @@ public class PropertyRepairOrder {
 
     private String address;
 
-    private Date dateOfScheduledRepair;
+    private LocalDateTime dateOfScheduledRepair;
 
     private RepairStatus repairStatus;
 
