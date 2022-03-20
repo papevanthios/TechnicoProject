@@ -18,7 +18,7 @@ import java.util.Optional;
 public class PropertyOwnerServiceImpl implements PropertyOwnerService{
     private PropertyOwnerRepository propertyOwnerRepository;
 
-    // Creating property Owner
+    // CREATE PROPERTY OWNER
     public PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException {
         if (    propertyOwner == null ||
                 propertyOwner.getVatNumber() == 0 ||
@@ -33,7 +33,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
         return propertyOwnerRepository.save(propertyOwner);
     }
 
-    // search by vat number: maria
+    // SEARCH BY VATNUMBER - MARIA
     @Override
     public PropertyOwner searchByVAT(int propertyOwnerVAT) throws PropertyOwnerException {
         PropertyOwner propertyOwner = null;
@@ -44,7 +44,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
             throw new PropertyOwnerException("Property owner not found.");
         return propertyOwner;
     }
-    // search by email: maria
+    // SEARCH BY EMAIL - MARIA
     @Override
     public PropertyOwner searchByEmail(String propertyOwnerEmail) throws PropertyOwnerException {
         PropertyOwner propertyOwner = null;
