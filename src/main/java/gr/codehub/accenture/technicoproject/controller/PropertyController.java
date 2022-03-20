@@ -29,8 +29,18 @@ public class PropertyController {
         return propertyService.searchPropertyByVAT(propertyOwnerVAT);
     }
 
-    // property  update kostas
+    @PutMapping(value = "/property/{propertyId}")
+    public Property updatePropertyFields(@PathVariable("propertyId") int propertyId,
+                                         @RequestBody Property property) throws PropertyException {
+        return propertyService.updatePropertyFields(propertyId, property);
+    }
 
+    @PutMapping(value = "/property/{propertyId}/propertyOwner/{propertyOwnerId}")
+    public Property updatePropertyFieldsAndPropertyOwner(@PathVariable("propertyId") int propertyId,
+                                                         @PathVariable("propertyOwnerId") int propertyOwnerId,
+                                                         @RequestBody Property property) throws PropertyException {
+        return propertyService.updatePropertyFieldsAndPropertyOwner(propertyId, propertyOwnerId, property);
+    }
 
     @DeleteMapping(value = "/property/{propertyIdNumber}")
     public boolean deletePropertyOwner(@PathVariable("propertyIdNumber") int propertyIdNumber) throws PropertyException {

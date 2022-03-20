@@ -11,7 +11,6 @@ public interface PropertyOwnerService {
 
     PropertyOwner searchByEmail(String propertyOwnerEmail) throws PropertyOwnerException;
 
-    // property owner update aris
     PropertyOwner updatePropertyOwner(int propertyOwnerId, PropertyOwner propertyOwner) throws PropertyOwnerException;
 
     boolean deletePropertyOwner(int propertyOwnerId) throws PropertyOwnerException;
