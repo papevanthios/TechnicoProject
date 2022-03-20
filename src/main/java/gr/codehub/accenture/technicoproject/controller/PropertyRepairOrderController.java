@@ -29,7 +29,7 @@ public class PropertyRepairOrderController {
 
     // PropertyRepairOrder Search2 by Manthos
     @GetMapping(value = "/propertyRepairOrder/rangeOfDates/{firstDate}/{secondDate}")
-    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate, @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) {
+    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate, @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) throws PropertyRepairOrderException {
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
