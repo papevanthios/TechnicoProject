@@ -34,4 +34,4 @@ build/
 
 #added by hand manthos suggestion for .idea
 .idea/**
-**/src/resources/application.yml
+src/main/resources/application.yml

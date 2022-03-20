@@ -1,20 +1,53 @@
 package gr.codehub.accenture.technicoproject.controller;
 
+import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
+import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
+import gr.codehub.accenture.technicoproject.service.PropertyRepairOrderService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 public class PropertyRepairOrderController {
+    private PropertyRepairOrderService propertyRepairOrderService;
 
-    // property repair create kostas
+    @PostMapping (value = "/propertyRepairOrder/property/{propertyId}")
+    public PropertyRepairOrder createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
+                                                         @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
+    }
 
-    // property repair search1 manthos
+    @GetMapping(value = "/propertyRepairOrder/useId/{propertyOwnerId}")
+    public List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.searchByPropertyOwnerIdForPropertyRepairOrder(propertyOwnerId);
+    }
 
-    // property repair search2
+    @GetMapping(value = "/propertyRepairOrder/rangeOfDates/{firstDate}/{secondDate}")
+    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate,
+                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
+    }
 
-    // property repair update
+    @PutMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}")
+    public PropertyRepairOrder updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                               @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
+    }
 
-    // property repair delete
+    @PutMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}/property/{propertyId}")
+    public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                                          @PathVariable("propertyId") int propertyId,
+                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.updatePropertyRepairOrderFieldsAndProperty(propertyRepairOrderId, propertyId, propertyRepairOrder);
+    }
+
+    @DeleteMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}")
+    public boolean deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.deletePropertyRepairOrder(propertyRepairOrderId);
+    }
 }
 

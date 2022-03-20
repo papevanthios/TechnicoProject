@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class GeneralController {
 
-    // endpoint home maria
-    @GetMapping(value="")
-    public String home(){
-        return "home page";
+    @GetMapping(value = "")
+    public String home() {
+        return "Welcome to the Team ....";
     }
 }

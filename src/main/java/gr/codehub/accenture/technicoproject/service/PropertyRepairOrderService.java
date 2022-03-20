@@ -1,17 +1,22 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
+import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
 public interface PropertyRepairOrderService {
 
-    // methods()
+    PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException;
 
-    // property repair create kostas
+    List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) throws PropertyRepairOrderException;
 
-    // property repair search1 manthos
-    // This is mine only
+    List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) throws PropertyRepairOrderException;
 
-    // property repair search2
+    PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
 
-    // property repair update
+    PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
 
-    // property repair delete
+    boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException;
 }

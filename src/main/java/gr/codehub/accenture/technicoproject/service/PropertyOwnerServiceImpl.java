@@ -6,23 +6,19 @@ import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.Email;
 import java.util.Objects;
 import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class PropertyOwnerServiceImpl implements PropertyOwnerService{
+public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     private PropertyOwnerRepository propertyOwnerRepository;
 
-    // CREATE PROPERTY OWNER
+    // Creating property Owner
     @Override
     public PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException {
-        if (    propertyOwner == null ||
-                propertyOwner.getVatNumber() == 0 ||
+        if (propertyOwner == null ||
+                propertyOwner.getVatNumber() == null ||
                 propertyOwner.getFirstName() == null ||
                 propertyOwner.getLastName() == null ||
                 propertyOwner.getAddress() == null ||
@@ -34,18 +30,19 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
         return propertyOwnerRepository.save(propertyOwner);
     }
 
-    // SEARCH BY VATNUMBER - MARIA
+    // search by vat number: maria
     @Override
-    public PropertyOwner searchByVAT(int propertyOwnerVAT) throws PropertyOwnerException {
+    public PropertyOwner searchByVAT(String propertyOwnerVAT) throws PropertyOwnerException {
         PropertyOwner propertyOwner = null;
         for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-            if (propertyOwnerRep.getVatNumber() == propertyOwnerVAT)
+            if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
                 propertyOwner = propertyOwnerRep;
         if (propertyOwner == null)
             throw new PropertyOwnerException("Property owner not found.");
         return propertyOwner;
     }
-    // SEARCH BY EMAIL - MARIA
+
+    // search by email: maria
     @Override
     public PropertyOwner searchByEmail(String propertyOwnerEmail) throws PropertyOwnerException {
         PropertyOwner propertyOwner = null;
@@ -60,7 +57,6 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
     // UPDATE - ARIS (needs to be corrected.............)
     @Override
     public PropertyOwner updatePropertyOwner(int propertyOwnerId, PropertyOwner propertyOwner) throws PropertyOwnerException {
-
         Optional<PropertyOwner> propertyOwnerDb = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerDb.isEmpty())
             throw new PropertyOwnerException("The property owner cannot be found.");
@@ -79,11 +75,11 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
     // DELETE - ARIS
     @Override
     public boolean deletePropertyOwner(int propertyOwnerId) throws PropertyOwnerException {
-        Optional<PropertyOwner> propertyOwnerDb = propertyOwnerRepository.findById(propertyOwnerId);
-        if (propertyOwnerDb.isEmpty())
+        Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
+        if (propertyOwnerOpt.isEmpty())
             throw new PropertyOwnerException("The property owner cannot be found.");
-        if (propertyOwnerDb.get().getProperty() == null) {
-            propertyOwnerRepository.delete(propertyOwnerDb.get());
+        if (propertyOwnerOpt.get().getPropertyList().isEmpty()) {
+            propertyOwnerRepository.delete(propertyOwnerOpt.get());
             return true;
         }
         throw new PropertyOwnerException("The property owner has properties.");
