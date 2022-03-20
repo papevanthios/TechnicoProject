@@ -134,61 +134,18 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     @Override
     public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
-        // Check if PropertyRepairOrder exists.
-        Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        if (propertyRepairOrderOpt.isEmpty())
-            throw new PropertyRepairOrderException("The Property Repair Order can not be found.");
-
         // Check if Property exists.
         Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
         if (propertyOpt.isEmpty())
             throw new PropertyRepairOrderException("The Property can not be found.");
 
-        // Check every possible field for user input, and update it.
-        try {
-            if (propertyRepairOrder.getDateOfScheduledRepair() != null)
-                propertyRepairOrderOpt.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The date of scheduled repair is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getRepairStatus() != null)
-                propertyRepairOrderOpt.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The repair status is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getRepairType() != null)
-                propertyRepairOrderOpt.get().setRepairType(propertyRepairOrder.getRepairType());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The repair type is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getCostOfRepair() != null)
-                propertyRepairOrderOpt.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The cost of repair is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getDescription() != null)
-                propertyRepairOrderOpt.get().setDescription(propertyRepairOrder.getDescription());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The description is incorrect.");
-        }
+        // Check update property repair order fields and property repair id.
+        PropertyRepairOrder propertyRepairOrderUpd = updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
 
         // Setting property if exists.
-        propertyRepairOrderOpt.get().setProperty(propertyOpt.get());
+        propertyRepairOrderUpd.setProperty(propertyOpt.get());
 
-        return propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
+        return propertyRepairOrderRepository.save(propertyRepairOrderUpd);
     }
 
     @Override
