@@ -16,21 +16,13 @@ public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer caseId;
-
     private LocalDateTime dateOfRegistrationOrder;
-
-    private String address;
-
+    private String address; // propertyAddress from property
     private Date dateOfScheduledRepair;
-
     private RepairStatus repairStatus;
-
     private RepairType repairType;
-
     private BigDecimal costOfRepair;
-
     @OneToOne
-    private PropertyOwner propertyOwner;
-
+    private PropertyOwner propertyOwner; // better with property?
     private String description;
 }

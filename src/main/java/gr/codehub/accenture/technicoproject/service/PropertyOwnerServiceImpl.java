@@ -19,6 +19,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService{
     private PropertyOwnerRepository propertyOwnerRepository;
 
     // CREATE PROPERTY OWNER
+    @Override
     public PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException {
         if (    propertyOwner == null ||
                 propertyOwner.getVatNumber() == 0 ||
