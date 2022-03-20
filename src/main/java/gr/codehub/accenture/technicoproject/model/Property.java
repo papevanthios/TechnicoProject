@@ -13,9 +13,13 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer propertyId;
+    @Column(nullable = false)
     private Long propertyIdentificationNumber;
+    @Column(nullable = false)
     private String propertyAddress;
+    @Column(nullable = false)
     private Integer yearOfConstruction;
+    @Column(nullable = false)
     private PropertyType propertyType;
     @ManyToOne
     private PropertyOwner propertyOwner;

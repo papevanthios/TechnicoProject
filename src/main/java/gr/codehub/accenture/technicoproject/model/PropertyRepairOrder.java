@@ -14,10 +14,15 @@ public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer caseId;
+    @Column(nullable = false)
     private LocalDateTime dateOfRegistrationOrder;
+    @Column(nullable = false)
     private LocalDateTime dateOfScheduledRepair;
+    @Column(nullable = false)
     private RepairStatus repairStatus;
+    @Column(nullable = false)
     private RepairType repairType;
+    @Column(nullable = false)
     private BigDecimal costOfRepair;
     @ManyToOne
     private Property property;
