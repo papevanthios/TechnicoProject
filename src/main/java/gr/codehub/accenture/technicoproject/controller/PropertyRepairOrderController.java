@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -27,8 +26,8 @@ public class PropertyRepairOrderController {
     }
 
     @GetMapping(value = "/propertyRepairOrder/rangeOfDates/{firstDate}/{secondDate}")
-    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate,
-                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) throws PropertyRepairOrderException {
+    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
+                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate) throws PropertyRepairOrderException {
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
