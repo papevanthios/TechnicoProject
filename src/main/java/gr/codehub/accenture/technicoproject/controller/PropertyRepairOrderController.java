@@ -25,6 +25,11 @@ public class PropertyRepairOrderController {
         return propertyRepairOrderService.searchByPropertyOwnerIdForPropertyRepairOrder(propertyOwnerId);
     }
 
+    @GetMapping(value = "/propertyRepairOrder/date/{firstDate}")
+    public List<PropertyRepairOrder> searchByDate(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.searchByDate(firstDate);
+    }
+
     @GetMapping(value = "/propertyRepairOrder/rangeOfDates/{firstDate}/{secondDate}")
     public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
                                                           @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate) throws PropertyRepairOrderException {
