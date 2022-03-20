@@ -51,10 +51,58 @@ public class PropertyServiceImpl implements PropertyService {
         return property;
     }
 
-    // update property
     @Override
-    public Property updateProperty(int propertyId, Property property) throws PropertyException {
-        return null;
+    public Property updatePropertyFields(int propertyId, Property property) throws PropertyException {
+        // Check if Property exists.
+        Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
+        if (propertyOpt.isEmpty())
+            throw new PropertyException("The Property can not be found.");
+
+        // Check every possible field for user input, and update it.
+        try {
+            if (property.getPropertyType() != null)
+                propertyOpt.get().setPropertyType(property.getPropertyType());
+        } catch (Exception e) {
+            throw new PropertyException("The Property Type is incorrect.");
+        }
+
+        try {
+            if (property.getPropertyAddress() != null)
+                propertyOpt.get().setPropertyAddress(property.getPropertyAddress());
+        } catch (Exception e) {
+            throw new PropertyException("The Address is incorrect.");
+        }
+
+        try {
+            if (property.getPropertyIdentificationNumber() != null)
+                propertyOpt.get().setPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
+        } catch (Exception e) {
+            throw new PropertyException("The repair type is incorrect.");
+        }
+
+        try {
+            if (property.getYearOfConstruction() != null)
+                propertyOpt.get().setYearOfConstruction(property.getYearOfConstruction());
+        } catch (Exception e) {
+            throw new PropertyException("The cost of repair is incorrect.");
+        }
+
+        return propertyRepository.save(propertyOpt.get());
+    }
+
+    @Override
+    public Property updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) throws PropertyException {
+        // Check if Property Owner exists.
+        Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
+        if (propertyOwnerOpt.isEmpty())
+            throw new PropertyException("The Property Owner does not exist.");
+
+        // Check if Property exists and Update Fields.
+        Property propertyUpd = updatePropertyFields(propertyId, property);
+
+        // Setting Property Owner.
+        propertyUpd.setPropertyOwner(propertyOwnerOpt.get());
+        return propertyRepository.save(propertyUpd);
     }
 
     @Override

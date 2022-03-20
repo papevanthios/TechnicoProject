@@ -13,8 +13,9 @@ public interface PropertyService {
 
     List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException;
 
-    // property  update kostas
-    Property updateProperty(int propertyId, Property property) throws PropertyException;
+    Property updatePropertyFields(int propertyId, Property property) throws PropertyException;
+
+    Property updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) throws PropertyException;
 
     boolean deleteProperty(int propertyId) throws PropertyException;
 }

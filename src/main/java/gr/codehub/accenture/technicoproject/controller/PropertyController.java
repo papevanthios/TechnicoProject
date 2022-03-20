@@ -31,6 +31,7 @@ public class PropertyController {
 
     // property  update kostas
 
+
     @DeleteMapping(value = "/property/{propertyIdNumber}")
     public boolean deletePropertyOwner(@PathVariable("propertyIdNumber") int propertyIdNumber) throws PropertyException {
         return propertyService.deleteProperty(propertyIdNumber);

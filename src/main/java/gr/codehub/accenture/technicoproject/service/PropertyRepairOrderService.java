@@ -3,8 +3,6 @@ package gr.codehub.accenture.technicoproject.service;
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PropertyRepairOrderService {

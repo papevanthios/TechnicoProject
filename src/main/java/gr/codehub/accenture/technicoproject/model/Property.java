@@ -13,7 +13,7 @@ public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer propertyId;
-    @Column(nullable = false)
+    @Column(unique=true, nullable = false)
     private Long propertyIdentificationNumber;
     @Column(nullable = false)
     private String propertyAddress;
