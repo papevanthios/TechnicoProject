@@ -62,12 +62,14 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) {
+    public List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) throws PropertyRepairOrderException {
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
-//        for (LocalDateTime d = firstDate;  !d.isAfter(secondDate) ; d = d.plusDays(1)) {
-//            propertyRepairOrderList.add(d);
-//        }
-        return null;
+        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
+            if (propertyRepairOrder.getDateOfRegistrationOrder().isAfter(firstDate) && propertyRepairOrder.getDateOfRegistrationOrder().isBefore(secondDate))
+                propertyRepairOrderList.add(propertyRepairOrder);
+        if (propertyRepairOrderList.isEmpty())
+            throw new PropertyRepairOrderException("No property repair orders found.");
+        return propertyRepairOrderList;
     }
 
     @Override
@@ -78,23 +80,53 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             throw new PropertyRepairOrderException("The Property Repair Order can not be found.");
 
         // Check every possible field for user input, and update it.
-        if (propertyRepairOrder.getAddress() != null)
-            propertyRepairOrderDb.get().setAddress(propertyRepairOrder.getAddress());
+        try {
+            if (propertyRepairOrder.getAddress() != null)
+                propertyRepairOrderDb.get().setAddress(propertyRepairOrder.getAddress());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The address is incorrect.");
+        }
 
-        if (propertyRepairOrder.getDateOfScheduledRepair() != null)
-            propertyRepairOrderDb.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
+        try {
+            if (propertyRepairOrder.getDateOfScheduledRepair() != null)
+                propertyRepairOrderDb.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The date of scheduled repair is incorrect.");
+        }
 
-        if (propertyRepairOrder.getRepairStatus() != null)
-            propertyRepairOrderDb.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
+        try {
+            if (propertyRepairOrder.getRepairStatus() != null)
+                propertyRepairOrderDb.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The repair status is incorrect.");
+        }
 
-        if (propertyRepairOrder.getRepairType() != null)
-            propertyRepairOrderDb.get().setRepairType(propertyRepairOrder.getRepairType());
+        try {
+            if (propertyRepairOrder.getRepairType() != null)
+                propertyRepairOrderDb.get().setRepairType(propertyRepairOrder.getRepairType());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The repair type is incorrect.");
+        }
 
-        if (propertyRepairOrder.getCostOfRepair() != null)
-            propertyRepairOrderDb.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
+        try {
+            if (propertyRepairOrder.getCostOfRepair() != null)
+                propertyRepairOrderDb.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The cost of repair is incorrect.");
+        }
 
-        if (propertyRepairOrder.getDescription() != null)
-            propertyRepairOrderDb.get().setDescription(propertyRepairOrder.getDescription());
+        try {
+            if (propertyRepairOrder.getDescription() != null)
+                propertyRepairOrderDb.get().setDescription(propertyRepairOrder.getDescription());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The description is incorrect.");
+        }
 
         return propertyRepairOrderRepository.save(propertyRepairOrderDb.get());
     }
