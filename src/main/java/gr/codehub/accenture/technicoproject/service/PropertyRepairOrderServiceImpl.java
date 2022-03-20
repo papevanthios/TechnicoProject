@@ -57,6 +57,19 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
+    public List<PropertyRepairOrder> searchByDate(String firstDate) throws PropertyRepairOrderException {
+        // Getting the list of property repair orders from query.
+        String secondDate = firstDate + "T23:59:59.999";
+        List<PropertyRepairOrder> propertyRepairOrderList = propertyRepairOrderRepository.getData(firstDate, secondDate);
+
+        // If there are no property repair orders we throw an exception.
+        if (propertyRepairOrderList.isEmpty())
+            throw new PropertyRepairOrderException("No property repair orders found.");
+
+        return propertyRepairOrderList;
+    }
+
+    @Override
     public List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException {
         // Getting the list of property repair orders from query.
         List<PropertyRepairOrder> propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
