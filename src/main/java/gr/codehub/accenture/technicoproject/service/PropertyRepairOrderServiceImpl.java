@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService{
+public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService {
 }

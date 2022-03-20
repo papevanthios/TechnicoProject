@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.service;
 
 public interface PropertyRepairOrderService {
-
     // methods()
 
     // property repair create kostas

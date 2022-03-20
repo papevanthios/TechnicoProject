@@ -12,20 +12,20 @@ public class PropertyOwnerController {
     private PropertyOwnerService propertyOwnerService;
 
     // property owner create maria
-    @PostMapping(value="/propertyOwner")
+    @PostMapping(value = "/propertyOwner")
     public PropertyOwner createPropertyOwner(@RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 
     // property owner search1 maria
-    @GetMapping(value = "/propertyOwner/vatNumber/{propertyOwnerVAT}")//for now return null (services need to be done first)
-    public  PropertyOwner searchByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) throws PropertyOwnerException {
+    @GetMapping(value = "/propertyOwner/vatNumber/{propertyOwnerVAT}")
+    public PropertyOwner searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) throws PropertyOwnerException {
         return propertyOwnerService.searchByVAT(propertyOwnerVAT);
     }
 
     // property owner search1 maria
-    @GetMapping(value = "/propertyOwner/email/{propertyOwnerEmail}")//for now return null (services need to be done first)
-    public  PropertyOwner searchByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) throws PropertyOwnerException {
+    @GetMapping(value = "/propertyOwner/email/{propertyOwnerEmail}")
+    public PropertyOwner searchPropertyOwnerByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) throws PropertyOwnerException {
         return propertyOwnerService.searchByEmail(propertyOwnerEmail);
     }
 
