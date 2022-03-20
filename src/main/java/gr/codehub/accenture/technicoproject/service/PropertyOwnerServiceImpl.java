@@ -18,14 +18,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     @Override
     public PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException {
         if (propertyOwner == null ||
-                propertyOwner.getVatNumber() == null ||
-                propertyOwner.getFirstName() == null ||
-                propertyOwner.getLastName() == null ||
-                propertyOwner.getAddress() == null ||
-                propertyOwner.getPhoneNumber() == null ||
-                propertyOwner.getEmail() == null ||
-                propertyOwner.getUsername() == null ||
-                propertyOwner.getPassword() == null)
+                propertyOwner.getVatNumber() == null)
             throw new PropertyOwnerException("Missing Property Owner information.");
         return propertyOwnerRepository.save(propertyOwner);
     }

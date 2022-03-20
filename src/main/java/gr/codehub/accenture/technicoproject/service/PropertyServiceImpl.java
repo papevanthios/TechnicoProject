@@ -24,11 +24,7 @@ public class PropertyServiceImpl implements PropertyService {
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty())
             throw new PropertyException("The property owner does not exist");
-        if (property == null ||
-                property.getPropertyIdentificationNumber() == 0 ||
-                property.getPropertyAddress() == null ||
-                property.getPropertyType() == null ||
-                property.getYearOfConstruction() == 0)
+        if (property == null)
             throw new PropertyException("Missing Property information.");
         property.setPropertyOwner(propertyOwnerOpt.get());
         return propertyRepository.save(property);

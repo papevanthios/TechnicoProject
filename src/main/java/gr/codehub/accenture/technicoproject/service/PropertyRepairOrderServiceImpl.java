@@ -2,7 +2,6 @@ package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.Property;
-import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
 import gr.codehub.accenture.technicoproject.repository.PropertyRepairOrderRepository;
@@ -29,14 +28,9 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         if (propertyOpt.isEmpty())
             throw new PropertyRepairOrderException("The Property does not exist.");
 
-        // Check if Property Repair Order information are not null.
-        if (    propertyRepairOrder == null
-                || propertyRepairOrder.getDateOfScheduledRepair() == null
-                || propertyRepairOrder.getRepairStatus() == null
-                || propertyRepairOrder.getRepairType() == null
-                || propertyRepairOrder.getCostOfRepair() == null
-            )
-            throw new PropertyRepairOrderException("Missing Property Repair Order information.");
+        // Check if Property Repair Order is not null.
+        if (propertyRepairOrder == null)
+            throw new PropertyRepairOrderException("Missing Property Repair Order.");
 
         // Set date of registration with local date time and set the property owner.
         propertyRepairOrder.setDateOfRegistrationOrder(LocalDateTime.now());
@@ -63,13 +57,14 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) throws PropertyRepairOrderException {
-        List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
-//        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
-//            if (propertyRepairOrder.getDateOfRegistrationOrder().isAfter(firstDate) && propertyRepairOrder.getDateOfRegistrationOrder().isBefore(secondDate))
-//                propertyRepairOrderList.add(propertyRepairOrder);
-//        if (propertyRepairOrderList.isEmpty())
-//            throw new PropertyRepairOrderException("No property repair orders found.");
+    public List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException {
+        // Getting the list of property repair orders from query.
+        List<PropertyRepairOrder> propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
+
+        // If there are no property repair orders we throw an exception.
+        if (propertyRepairOrderList.isEmpty())
+            throw new PropertyRepairOrderException("No property repair orders found.");
+
         return propertyRepairOrderList;
     }
 
@@ -177,11 +172,11 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             throw new PropertyRepairOrderException("The description is incorrect.");
         }
 
+        // Setting property if exists.
         propertyRepairOrderOpt.get().setProperty(propertyOpt.get());
 
         return propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
     }
-
 
     @Override
     public boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException {
