@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gr.codehub.accenture.technicoproject.enumer.PropertyType;
 import lombok.Data;
 
@@ -11,14 +12,14 @@ import java.util.List;
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer propertyId;
     private Long propertyIdentificationNumber;
     private String propertyAddress;
     private Integer yearOfConstruction;
     private PropertyType propertyType;
-    //@OneToOne
     @ManyToOne
     private PropertyOwner propertyOwner;
+    @JsonIgnore
     @OneToMany(mappedBy = "property")
     private List<PropertyRepairOrder> propertyRepairOrderList;
 }
