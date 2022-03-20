@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.exception.PropertyException;
-import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;

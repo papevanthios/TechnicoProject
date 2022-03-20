@@ -2,7 +2,6 @@ package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.Property;
-import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
 import gr.codehub.accenture.technicoproject.repository.PropertyRepairOrderRepository;
