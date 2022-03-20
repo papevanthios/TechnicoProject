@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -20,7 +19,6 @@ public class PropertyServiceImpl implements PropertyService {
     private PropertyRepository propertyRepository;
     private PropertyOwnerRepository propertyOwnerRepository;
 
-    // Creating property
     @Override
     public Property createProperty(Property property, int propertyOwnerId) throws PropertyException {
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
@@ -36,7 +34,6 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyRepository.save(property);
     }
 
-    // search property by Property ID Number
     @Override
     public Property searchPropertyByPropertyIdNumber(long propertyIdNumber) throws PropertyException {
         Property property = null;
@@ -48,7 +45,6 @@ public class PropertyServiceImpl implements PropertyService {
         return property;
     }
 
-    // search property by vat number
     @Override
     public List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException {
         List<Property> property = new ArrayList<>();
@@ -66,7 +62,6 @@ public class PropertyServiceImpl implements PropertyService {
         return null;
     }
 
-    // delete property
     @Override
     public boolean deleteProperty(int propertyIdNumber) throws PropertyException {
         Optional<Property> propertyDb = propertyRepository.findById(propertyIdNumber);

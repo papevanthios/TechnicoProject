@@ -7,18 +7,14 @@ import java.util.List;
 
 public interface PropertyService {
 
-    // property  create aris
     Property createProperty(Property property, int propertyOwnerId) throws PropertyException;
 
-    // property  search1 aris
     Property searchPropertyByPropertyIdNumber(long propertyIdNumber) throws PropertyException;
 
-    // property  search2 kostas
     List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException;
 
     // property  update kostas
     Property updateProperty(int propertyId, Property property) throws PropertyException;
 
-    // property  delete kostas
     boolean deleteProperty(int propertyId) throws PropertyException;
 }

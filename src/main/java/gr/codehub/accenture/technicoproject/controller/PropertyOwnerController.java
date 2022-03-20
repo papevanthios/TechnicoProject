@@ -19,7 +19,7 @@ public class PropertyOwnerController {
 
     // property owner search1 maria
     @GetMapping(value = "/propertyOwner/vatNumber/{propertyOwnerVAT}")
-    public PropertyOwner searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) throws PropertyOwnerException {
+    public PropertyOwner searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") String propertyOwnerVAT) throws PropertyOwnerException {
         return propertyOwnerService.searchByVAT(propertyOwnerVAT);
     }
 
@@ -31,7 +31,8 @@ public class PropertyOwnerController {
 
     // UPDATE - aris
     @PutMapping(value = "/propertyOwner/{propertyOwnerId}")
-    public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId, @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
+    public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
+                                             @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
     }
 

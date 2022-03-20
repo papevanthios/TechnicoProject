@@ -1,10 +1,12 @@
 package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
+import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
 import gr.codehub.accenture.technicoproject.repository.PropertyRepairOrderRepository;
+import gr.codehub.accenture.technicoproject.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +20,17 @@ import java.util.Optional;
 public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService{
     private PropertyRepairOrderRepository propertyRepairOrderRepository;
     private PropertyOwnerRepository propertyOwnerRepository;
+    private PropertyRepository propertyRepository;
 
     @Override
-    public PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyOwnerId) throws PropertyRepairOrderException {
-        // Check if PropertyOwner exists.
-        Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
-        if (propertyOwnerOpt.isEmpty())
-            throw new PropertyRepairOrderException("The Property Owner does not exist.");
+    public PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException {
+        // Check if Property exists.
+        Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
+        if (propertyOpt.isEmpty())
+            throw new PropertyRepairOrderException("The Property does not exist.");
 
         // Check if Property Repair Order information are not null.
         if (    propertyRepairOrder == null
-                || propertyRepairOrder.getAddress() == null
                 || propertyRepairOrder.getDateOfScheduledRepair() == null
                 || propertyRepairOrder.getRepairStatus() == null
                 || propertyRepairOrder.getRepairType() == null
@@ -38,7 +40,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         // Set date of registration with local date time and set the property owner.
         propertyRepairOrder.setDateOfRegistrationOrder(LocalDateTime.now());
-        propertyRepairOrder.setPropertyOwner(propertyOwnerOpt.get());
+        propertyRepairOrder.setProperty(propertyOpt.get());
 
         return propertyRepairOrderRepository.save(propertyRepairOrder);
     }
@@ -48,49 +50,40 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         // List to return.
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
 
-        // Iterate through all the repository or property repair order and add them to the list.
-        for (PropertyRepairOrder propertyRepairOrder: propertyRepairOrderRepository.findAll()) {
-            if (propertyRepairOrder.getPropertyOwner().getId() == propertyOwnerId) {
+        // Find property owners at the property repair orders, and add them to the list.
+        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
+            if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId)
                 propertyRepairOrderList.add(propertyRepairOrder);
-            }
-        }
 
-        // If list is empty then there are no property owners to be found. We throw a custom exception.
+        // If there are no property owner we throw an exception.
         if (propertyRepairOrderList.isEmpty())
             throw new PropertyRepairOrderException("No Property Owners with that id has be found.");
+
         return propertyRepairOrderList;
     }
 
     @Override
     public List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) throws PropertyRepairOrderException {
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
-        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
-            if (propertyRepairOrder.getDateOfRegistrationOrder().isAfter(firstDate) && propertyRepairOrder.getDateOfRegistrationOrder().isBefore(secondDate))
-                propertyRepairOrderList.add(propertyRepairOrder);
-        if (propertyRepairOrderList.isEmpty())
-            throw new PropertyRepairOrderException("No property repair orders found.");
+//        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
+//            if (propertyRepairOrder.getDateOfRegistrationOrder().isAfter(firstDate) && propertyRepairOrder.getDateOfRegistrationOrder().isBefore(secondDate))
+//                propertyRepairOrderList.add(propertyRepairOrder);
+//        if (propertyRepairOrderList.isEmpty())
+//            throw new PropertyRepairOrderException("No property repair orders found.");
         return propertyRepairOrderList;
     }
 
     @Override
-    public PropertyRepairOrder updatePropertyRepairOrder(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+    public PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
         // Check if PropertyRepairOrder exists.
-        Optional<PropertyRepairOrder> propertyRepairOrderDb = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        if (propertyRepairOrderDb.isEmpty())
+        Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        if (propertyRepairOrderOpt.isEmpty())
             throw new PropertyRepairOrderException("The Property Repair Order can not be found.");
 
         // Check every possible field for user input, and update it.
         try {
-            if (propertyRepairOrder.getAddress() != null)
-                propertyRepairOrderDb.get().setAddress(propertyRepairOrder.getAddress());
-        }
-        catch (Exception e) {
-            throw new PropertyRepairOrderException("The address is incorrect.");
-        }
-
-        try {
             if (propertyRepairOrder.getDateOfScheduledRepair() != null)
-                propertyRepairOrderDb.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
+                propertyRepairOrderOpt.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
         }
         catch (Exception e) {
             throw new PropertyRepairOrderException("The date of scheduled repair is incorrect.");
@@ -98,7 +91,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         try {
             if (propertyRepairOrder.getRepairStatus() != null)
-                propertyRepairOrderDb.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
+                propertyRepairOrderOpt.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
         }
         catch (Exception e) {
             throw new PropertyRepairOrderException("The repair status is incorrect.");
@@ -106,7 +99,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         try {
             if (propertyRepairOrder.getRepairType() != null)
-                propertyRepairOrderDb.get().setRepairType(propertyRepairOrder.getRepairType());
+                propertyRepairOrderOpt.get().setRepairType(propertyRepairOrder.getRepairType());
         }
         catch (Exception e) {
             throw new PropertyRepairOrderException("The repair type is incorrect.");
@@ -114,7 +107,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         try {
             if (propertyRepairOrder.getCostOfRepair() != null)
-                propertyRepairOrderDb.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
+                propertyRepairOrderOpt.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
         }
         catch (Exception e) {
             throw new PropertyRepairOrderException("The cost of repair is incorrect.");
@@ -122,14 +115,73 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         try {
             if (propertyRepairOrder.getDescription() != null)
-                propertyRepairOrderDb.get().setDescription(propertyRepairOrder.getDescription());
+                propertyRepairOrderOpt.get().setDescription(propertyRepairOrder.getDescription());
         }
         catch (Exception e) {
             throw new PropertyRepairOrderException("The description is incorrect.");
         }
 
-        return propertyRepairOrderRepository.save(propertyRepairOrderDb.get());
+        return propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
     }
+
+    @Override
+    public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        // Check if PropertyRepairOrder exists.
+        Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        if (propertyRepairOrderOpt.isEmpty())
+            throw new PropertyRepairOrderException("The Property Repair Order can not be found.");
+
+        // Check if Property exists.
+        Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
+        if (propertyOpt.isEmpty())
+            throw new PropertyRepairOrderException("The Property can not be found.");
+
+        // Check every possible field for user input, and update it.
+        try {
+            if (propertyRepairOrder.getDateOfScheduledRepair() != null)
+                propertyRepairOrderOpt.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The date of scheduled repair is incorrect.");
+        }
+
+        try {
+            if (propertyRepairOrder.getRepairStatus() != null)
+                propertyRepairOrderOpt.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The repair status is incorrect.");
+        }
+
+        try {
+            if (propertyRepairOrder.getRepairType() != null)
+                propertyRepairOrderOpt.get().setRepairType(propertyRepairOrder.getRepairType());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The repair type is incorrect.");
+        }
+
+        try {
+            if (propertyRepairOrder.getCostOfRepair() != null)
+                propertyRepairOrderOpt.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The cost of repair is incorrect.");
+        }
+
+        try {
+            if (propertyRepairOrder.getDescription() != null)
+                propertyRepairOrderOpt.get().setDescription(propertyRepairOrder.getDescription());
+        }
+        catch (Exception e) {
+            throw new PropertyRepairOrderException("The description is incorrect.");
+        }
+
+        propertyRepairOrderOpt.get().setProperty(propertyOpt.get());
+
+        return propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
+    }
+
 
     @Override
     public boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException {

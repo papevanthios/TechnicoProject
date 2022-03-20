@@ -32,10 +32,10 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     // search by vat number: maria
     @Override
-    public PropertyOwner searchByVAT(int propertyOwnerVAT) throws PropertyOwnerException {
+    public PropertyOwner searchByVAT(String propertyOwnerVAT) throws PropertyOwnerException {
         PropertyOwner propertyOwner = null;
         for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-            if (Integer.parseInt(propertyOwnerRep.getVatNumber()) == propertyOwnerVAT)
+            if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
                 propertyOwner = propertyOwnerRep;
         if (propertyOwner == null)
             throw new PropertyOwnerException("Property owner not found.");

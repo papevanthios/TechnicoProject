@@ -15,32 +15,36 @@ import java.util.List;
 public class PropertyRepairOrderController {
     private PropertyRepairOrderService propertyRepairOrderService;
 
-    // PropertyRepairOrder Create by Manthos
-    @PostMapping (value = "/propertyRepairOrder/propertyOwner/{propertyOwnerId}")
-    public PropertyRepairOrder createPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId, @RequestBody  PropertyRepairOrder  propertyRepairOrder) throws PropertyRepairOrderException {
-        return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder, propertyOwnerId);
+    @PostMapping (value = "/propertyRepairOrder/property/{propertyId}")
+    public PropertyRepairOrder createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
+                                                         @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
     }
 
-    // PropertyRepairOrder Search1 by Manthos
     @GetMapping(value = "/propertyRepairOrder/useId/{propertyOwnerId}")
     public List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyRepairOrderException {
         return propertyRepairOrderService.searchByPropertyOwnerIdForPropertyRepairOrder(propertyOwnerId);
     }
 
-    // PropertyRepairOrder Search2 by Manthos
     @GetMapping(value = "/propertyRepairOrder/rangeOfDates/{firstDate}/{secondDate}")
-    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate, @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) throws PropertyRepairOrderException {
+    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime firstDate,
+                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime secondDate) throws PropertyRepairOrderException {
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
-    // PropertyRepairOrder Update by Manthos
     @PutMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}")
-    public PropertyRepairOrder updatePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId, @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
-        return propertyRepairOrderService.updatePropertyRepairOrder(propertyRepairOrderId, propertyRepairOrder);
+    public PropertyRepairOrder updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                               @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
     }
 
+    @PutMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}/property/{propertyId}")
+    public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                                          @PathVariable("propertyId") int propertyId,
+                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+        return propertyRepairOrderService.updatePropertyRepairOrderFieldsAndProperty(propertyRepairOrderId, propertyId, propertyRepairOrder);
+    }
 
-    // PropertyRepairOrder Delete by Manthos
     @DeleteMapping(value = "/propertyRepairOrder/{propertyRepairOrderId}")
     public boolean deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) throws PropertyRepairOrderException {
         return propertyRepairOrderService.deletePropertyRepairOrder(propertyRepairOrderId);

@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,21 +13,21 @@ import java.util.List;
 public class PropertyOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(unique=true, length = 9)  // To ensure a field value is unique you can write
-    @Size(min=9, max=9)   // specific format for VAT with 9 digits
+    private int propertyOwnerId;
+    @Column(unique=true, length = 9)
+    @Size(min=9, max=9)
     private String vatNumber;
     private String firstName;
     private String lastName;
     private String address;
     @Column(unique=true, length = 10)
-    @Size(min=10, max=10) // specific format for phoneNumber with 10 digits
+    @Size(min=10, max=10)
     private String phoneNumber;
-    @Email                // we need a format constraint here @ and dot
+    @Email
     private String email;
     private String username;
     private String password;
-    //@OneToOne
+    @JsonIgnore
     @OneToMany(mappedBy = "propertyOwner")
     private List<Property> propertyList;
 }

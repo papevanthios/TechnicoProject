@@ -8,18 +8,15 @@ import java.util.List;
 
 public interface PropertyRepairOrderService {
 
-    // property repair create manthos
-    PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyOwnerId) throws PropertyRepairOrderException;
+    PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException;
 
-    // property repair search1 manthos
     List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) throws PropertyRepairOrderException;
 
-    // property repair search2 manthos
     List<PropertyRepairOrder> searchByRangeOfDates(LocalDateTime firstDate, LocalDateTime secondDate) throws PropertyRepairOrderException;
 
-    // property repair update manthos
-    PropertyRepairOrder updatePropertyRepairOrder(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
+    PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
 
-    // property repair delete manthos
+    PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
+
     boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException;
 }
