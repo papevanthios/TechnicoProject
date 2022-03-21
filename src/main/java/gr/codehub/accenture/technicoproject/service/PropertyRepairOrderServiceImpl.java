@@ -4,10 +4,10 @@ import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
-import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
 import gr.codehub.accenture.technicoproject.repository.PropertyRepairOrderRepository;
 import gr.codehub.accenture.technicoproject.repository.PropertyRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,21 +17,33 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService{
     private PropertyRepairOrderRepository propertyRepairOrderRepository;
-    private PropertyOwnerRepository propertyOwnerRepository;
     private PropertyRepository propertyRepository;
+
+    private static final String LINE_DELIMITER = "---------------------------------------";
 
     @Override
     public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
+        log.info("");
+        log.info("Creating a new Property Repair Order...");
+        log.info(LINE_DELIMITER);
+
         // Check if property exists.
         Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
-        if (propertyOpt.isEmpty())
+        if (propertyOpt.isEmpty()) {
+            log.info("The property was not found.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
+        }
 
         // Check if Property Repair Order exists.
-        if (propertyRepairOrder == null)
+        if (propertyRepairOrder == null) {
+            log.info("The property repair order was not found.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "The property repair order was not found.");
+        }
 
         try {
             // Set date of registration with local date time and set the property owner.
@@ -39,10 +51,14 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             propertyRepairOrder.setProperty(propertyOpt.get());
 
             propertyRepairOrderRepository.save(propertyRepairOrder);
+            log.info("Created property repair order.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(propertyRepairOrder, ResponseStatus.SUCCESS, "Created property repair order.");
         }
         catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_CANNOT_BE_CREATED, "The property repair order cannot be created.");
+            log.info("Exception enabled.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
     }
 
@@ -296,7 +312,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         // Check if property repair order was not found.
         if (propertyRepairOrderDb.isEmpty())
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair order was not faound.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair order was not found.");
 
         // Then delete it.
         try {
