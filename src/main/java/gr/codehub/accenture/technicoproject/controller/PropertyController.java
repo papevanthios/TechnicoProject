@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
-import gr.codehub.accenture.technicoproject.exception.PropertyException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.service.PropertyService;
 import lombok.AllArgsConstructor;
@@ -45,7 +44,7 @@ public class PropertyController {
     }
 
     @DeleteMapping("/{propertyIdNumber}")
-    public boolean deletePropertyOwner(@PathVariable("propertyIdNumber") int propertyIdNumber) throws PropertyException {
+    public ResponseResultDto<Boolean> deletePropertyOwner(@PathVariable("propertyIdNumber") int propertyIdNumber) {
         return propertyService.deleteProperty(propertyIdNumber);
     }
 }

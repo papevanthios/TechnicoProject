@@ -2,7 +2,6 @@ package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
-import gr.codehub.accenture.technicoproject.exception.PropertyException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
@@ -159,14 +158,25 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public boolean deleteProperty(int propertyIdNumber) throws PropertyException {
-        Optional<Property> propertyDb = propertyRepository.findById(propertyIdNumber);
-        if (propertyDb.isEmpty())
-            throw new PropertyException("The property cannot be found.");
-        if (propertyDb.get().getPropertyRepairOrderList().isEmpty()) {
-            propertyRepository.delete(propertyDb.get());
-            return true;
+    public ResponseResultDto<Boolean> deleteProperty(int propertyIdNumber) {
+        Optional<Property> propertyOpt;
+        try {
+            propertyOpt = propertyRepository.findById(propertyIdNumber);
         }
-        throw new PropertyException("The property has repairs.");
+        catch (Exception e) {
+            return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
+        }
+        if (propertyOpt.isEmpty())
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
+
+        if (propertyOpt.get().getPropertyRepairOrderList().isEmpty()) {
+            try {
+                propertyRepository.delete(propertyOpt.get());
+            }
+            catch (Exception e) {
+                return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
+            }
+        }
+        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Property was deleted.");
     }
 }

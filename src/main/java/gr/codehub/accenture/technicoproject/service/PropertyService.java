@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
-import gr.codehub.accenture.technicoproject.exception.PropertyException;
 import gr.codehub.accenture.technicoproject.model.Property;
 
 import java.util.List;
@@ -18,5 +17,5 @@ public interface PropertyService {
 
     ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property);
 
-    boolean deleteProperty(int propertyId) throws PropertyException;
+    ResponseResultDto<Boolean> deleteProperty(int propertyId);
 }
