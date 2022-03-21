@@ -1,5 +1,7 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
+import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
 import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
@@ -15,44 +17,54 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     private PropertyOwnerRepository propertyOwnerRepository;
 
     @Override
-    public PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException {
+    public ResponseResultDto<Boolean> createPropertyOwner(PropertyOwner propertyOwner) {
         if (propertyOwner == null ||
                 propertyOwner.getVatNumber() == null)
-            throw new PropertyOwnerException("Missing Property Owner information.");
-        return propertyOwnerRepository.save(propertyOwner);
+            return new ResponseResultDto<Boolean>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+        try {
+            propertyOwnerRepository.save(propertyOwner);
+        }
+        catch(Exception e){
+            return new ResponseResultDto<Boolean>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+        }
+        return new ResponseResultDto<Boolean>(true, ResponseStatus.SUCCESS, "The property owner has been created.");
     }
 
     @Override
-    public PropertyOwner searchByVAT(String propertyOwnerVAT) throws PropertyOwnerException {
+    public ResponseResultDto<PropertyOwner> searchByVAT(String propertyOwnerVAT){
         PropertyOwner propertyOwner = null;
         for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
             if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
                 propertyOwner = propertyOwnerRep;
+
         if (propertyOwner == null)
-            throw new PropertyOwnerException("Property owner not found.");
-        return propertyOwner;
+            return new ResponseResultDto<PropertyOwner>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+
+        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override
-    public PropertyOwner searchByEmail(String propertyOwnerEmail) throws PropertyOwnerException {
+    public ResponseResultDto<PropertyOwner> searchByEmail(String propertyOwnerEmail) {
         PropertyOwner propertyOwner = null;
         for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
             if (Objects.equals(propertyOwnerRep.getEmail(), propertyOwnerEmail))
                 propertyOwner = propertyOwnerRep;
         if (propertyOwner == null)
-            throw new PropertyOwnerException("Property owner not found.");
-        return propertyOwner;
+            return new ResponseResultDto<PropertyOwner>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override
-    public PropertyOwner searchByPropertyOwnerId(int propertyOwnerId) throws PropertyOwnerException {
+    public ResponseResultDto<PropertyOwner> searchByPropertyOwnerId(int propertyOwnerId) {
         PropertyOwner propertyOwner = null;
         for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
             if (Objects.equals(propertyOwnerRep.getPropertyOwnerId(), propertyOwnerId))
                 propertyOwner = propertyOwnerRep;
+
         if (propertyOwner == null)
-            throw new PropertyOwnerException("Property owner not found.");
-        return propertyOwner;
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+
+        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override

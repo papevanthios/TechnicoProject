@@ -1,17 +1,18 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 
 public interface PropertyOwnerService {
 
-    PropertyOwner createPropertyOwner(PropertyOwner propertyOwner) throws PropertyOwnerException;
+    ResponseResultDto<Boolean> createPropertyOwner(PropertyOwner propertyOwner);//done
 
-    PropertyOwner searchByVAT(String propertyOwnerVAT) throws PropertyOwnerException;
+    ResponseResultDto<PropertyOwner> searchByVAT(String propertyOwnerVAT);// done
 
-    PropertyOwner searchByEmail(String propertyOwnerEmail) throws PropertyOwnerException;
+    ResponseResultDto<PropertyOwner> searchByEmail(String propertyOwnerEmail);// done
 
-    PropertyOwner searchByPropertyOwnerId(int propertyOwnerId) throws PropertyOwnerException;
+    ResponseResultDto<PropertyOwner> searchByPropertyOwnerId(int propertyOwnerId); // done
 
     PropertyOwner updatePropertyOwner(int propertyOwnerId, PropertyOwner propertyOwner) throws PropertyOwnerException;
 
