@@ -22,7 +22,7 @@ public class PropertyController {
     }
 
     @GetMapping("/propertyIdNumber/{propertyIdNumber}")
-    public Property searchPropertyByPropertyIdNumber(@PathVariable("propertyIdNumber") long propertyIdNumber) throws PropertyException {
+    public ResponseResultDto<Property> searchPropertyByPropertyIdNumber(@PathVariable("propertyIdNumber") long propertyIdNumber) {
         return propertyService.searchPropertyByPropertyIdNumber(propertyIdNumber);
     }
 

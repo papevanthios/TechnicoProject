@@ -30,21 +30,27 @@ public class PropertyServiceImpl implements PropertyService {
         property.setPropertyOwner(propertyOwnerOpt.get());
         try {
             propertyRepository.save(property);
-        } catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error has occurred.");
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was created.");
     }
 
     @Override
-    public Property searchPropertyByPropertyIdNumber(long propertyIdNumber) throws PropertyException {
+    public ResponseResultDto<Property> searchPropertyByPropertyIdNumber(long propertyIdNumber) {
         Property property = null;
-        for (Property propertyRep : propertyRepository.findAll())
-            if (propertyRep.getPropertyIdentificationNumber() == propertyIdNumber)
-                property = propertyRep;
+        try {
+            for (Property propertyRep : propertyRepository.findAll())
+                if (propertyRep.getPropertyIdentificationNumber() == propertyIdNumber)
+                    property = propertyRep;
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
         if (property == null)
-            throw new PropertyException("Property not found.");
-        return property;
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
+        return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "The property found.");
     }
 
     @Override

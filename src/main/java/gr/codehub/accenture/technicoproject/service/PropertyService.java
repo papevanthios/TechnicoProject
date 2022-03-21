@@ -10,7 +10,7 @@ public interface PropertyService {
 
     ResponseResultDto<Property> createProperty(Property property, int propertyOwnerId);
 
-    Property searchPropertyByPropertyIdNumber(long propertyIdNumber) throws PropertyException;
+    ResponseResultDto<Property> searchPropertyByPropertyIdNumber(long propertyIdNumber);
 
     List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException;
 
