@@ -24,15 +24,15 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     private PropertyRepository propertyRepository;
 
     @Override
-    public ResponseResultDto<Boolean> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
+    public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
         // Check if property exists.
         Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
         if (propertyOpt.isEmpty())
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
 
         // Check if Property Repair Order exists.
         if (propertyRepairOrder == null)
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "The property repair order was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "The property repair order was not found.");
 
         try {
             // Set date of registration with local date time and set the property owner.
@@ -40,10 +40,10 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             propertyRepairOrder.setProperty(propertyOpt.get());
 
             propertyRepairOrderRepository.save(propertyRepairOrder);
-            return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Created property repair order.");
+            return new ResponseResultDto<>(propertyRepairOrder, ResponseStatus.SUCCESS, "Created property repair order.");
         }
         catch (Exception e) {
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_CANNOT_BE_CREATED, "The property repair order cannot be created.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_CANNOT_BE_CREATED, "The property repair order cannot be created.");
         }
     }
 

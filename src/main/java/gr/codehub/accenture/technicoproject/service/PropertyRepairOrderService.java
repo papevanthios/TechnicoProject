@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PropertyRepairOrderService {
 
-    ResponseResultDto<Boolean> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId);
+    ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId);
 
     ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId);
 

@@ -17,7 +17,7 @@ public class PropertyRepairOrderController {
     private PropertyRepairOrderService propertyRepairOrderService;
 
     @PostMapping (value = "/property/{propertyId}")
-    public ResponseResultDto<Boolean> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
+    public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
                                                                 @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
     }
