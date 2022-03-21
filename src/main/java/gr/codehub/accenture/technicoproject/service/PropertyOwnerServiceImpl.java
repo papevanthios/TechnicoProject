@@ -45,6 +45,17 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     }
 
     @Override
+    public PropertyOwner searchByPropertyOwnerId(int propertyOwnerId) throws PropertyOwnerException {
+        PropertyOwner propertyOwner = null;
+        for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
+            if (Objects.equals(propertyOwnerRep.getPropertyOwnerId(), propertyOwnerId))
+                propertyOwner = propertyOwnerRep;
+        if (propertyOwner == null)
+            throw new PropertyOwnerException("Property owner not found.");
+        return propertyOwner;
+    }
+
+    @Override
     public PropertyOwner updatePropertyOwner(int propertyOwnerId, PropertyOwner propertyOwner) throws PropertyOwnerException {
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty())
