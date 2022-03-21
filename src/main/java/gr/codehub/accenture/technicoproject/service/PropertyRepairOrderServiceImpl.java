@@ -266,70 +266,19 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         if (propertyOpt.isEmpty())
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
 
-        // Check if PropertyRepairOrder exists.
-        Optional<PropertyRepairOrder> propertyRepairOrderOpt;
-        try{
-            propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
-        }
-
-        // Check if the property repair order was not found.
-        if (propertyRepairOrderOpt.isEmpty())
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair order was not found.");
-
-        // Check every possible field for user input, and update it.
-        try {
-            if (propertyRepairOrder.getDateOfScheduledRepair() != null)
-                propertyRepairOrderOpt.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Date of scheduled repair is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getRepairStatus() != null)
-                propertyRepairOrderOpt.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Repair status is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getRepairType() != null)
-                propertyRepairOrderOpt.get().setRepairType(propertyRepairOrder.getRepairType());
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Repair type is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getCostOfRepair() != null)
-                propertyRepairOrderOpt.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Cost of repair is incorrect.");
-        }
-
-        try {
-            if (propertyRepairOrder.getDescription() != null)
-                propertyRepairOrderOpt.get().setDescription(propertyRepairOrder.getDescription());
-        }
-        catch (Exception e) {
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Description is incorrect.");
-        }
+        ResponseResultDto<PropertyRepairOrder> propertyRepairOrderResponseResultDto = updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
+        PropertyRepairOrder propertyRepairOrderUpt = propertyRepairOrderResponseResultDto.getData();
 
         // Saving the property repair order to the repository and check for errors.
         try {
-            propertyRepairOrderOpt.get().setProperty(propertyOpt.get());
-            propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
+            propertyRepairOrderUpt.setProperty(propertyOpt.get());
+            propertyRepairOrderRepository.save(propertyRepairOrderUpt);
         }
         catch (Exception e) {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
-        return new ResponseResultDto<>(propertyRepairOrderOpt.get(), ResponseStatus.SUCCESS, "Property repair order was updated.");
+        return new ResponseResultDto<>(propertyRepairOrderUpt, ResponseStatus.SUCCESS, "Property repair order was updated.");
     }
 
     @Override
