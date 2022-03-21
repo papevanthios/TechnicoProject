@@ -22,5 +22,5 @@ public interface PropertyRepairOrderService {
 
     ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder);
 
-    boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException;
+    ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId);
 }

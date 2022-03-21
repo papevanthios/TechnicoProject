@@ -58,7 +58,7 @@ public class PropertyRepairOrderController {
     }
 
     @DeleteMapping(value = "/{propertyRepairOrderId}")
-    public boolean deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) throws PropertyRepairOrderException {
+    public ResponseResultDto<Boolean> deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId){
         return propertyRepairOrderService.deletePropertyRepairOrder(propertyRepairOrderId);
     }
 }

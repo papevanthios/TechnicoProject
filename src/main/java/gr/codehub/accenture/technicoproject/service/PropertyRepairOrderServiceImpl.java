@@ -266,14 +266,27 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException {
+    public ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId){
         //Check if PropertyRepairOrder exists.
-        Optional<PropertyRepairOrder> propertyRepairOrderDb = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        Optional<PropertyRepairOrder> propertyRepairOrderDb;
+        try {
+            propertyRepairOrderDb = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
+        }
+
+        // Check if property repair order was not found.
         if (propertyRepairOrderDb.isEmpty())
-            throw new PropertyRepairOrderException("The Property Repair Order can not be found.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair order was not faound.");
 
         // Then delete it.
-        propertyRepairOrderRepository.delete(propertyRepairOrderDb.get());
-        return true;
+        try {
+            propertyRepairOrderRepository.delete(propertyRepairOrderDb.get());
+        }
+        catch (Exception e){
+            return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
+        }
+        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Property repair order was deleted.");
     }
 }
