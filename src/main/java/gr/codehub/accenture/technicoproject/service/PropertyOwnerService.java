@@ -16,5 +16,5 @@ public interface PropertyOwnerService {
 
     PropertyOwner updatePropertyOwner(int propertyOwnerId, PropertyOwner propertyOwner) throws PropertyOwnerException;
 
-    boolean deletePropertyOwner(int propertyOwnerId) throws PropertyOwnerException;
+    ResponseResultDto<Boolean> deletePropertyOwner(int propertyOwnerId); // done
 }

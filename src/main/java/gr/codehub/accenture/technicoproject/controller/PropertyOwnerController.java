@@ -39,8 +39,8 @@ public class PropertyOwnerController {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
     }
 
-    @DeleteMapping(value = "/{propertyOwnerId}") // to do
-    public boolean deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyOwnerException {
+    @DeleteMapping(value = "/{propertyOwnerId}")
+    public ResponseResultDto<Boolean> deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) {
         return propertyOwnerService.deletePropertyOwner(propertyOwnerId);
     }
 }

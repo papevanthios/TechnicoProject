@@ -20,14 +20,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     public ResponseResultDto<Boolean> createPropertyOwner(PropertyOwner propertyOwner) {
         if (propertyOwner == null ||
                 propertyOwner.getVatNumber() == null)
-            return new ResponseResultDto<Boolean>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
         try {
             propertyOwnerRepository.save(propertyOwner);
         }
         catch(Exception e){
-            return new ResponseResultDto<Boolean>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
         }
-        return new ResponseResultDto<Boolean>(true, ResponseStatus.SUCCESS, "The property owner has been created.");
+        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been created.");
     }
 
     @Override
@@ -38,9 +38,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwner = propertyOwnerRep;
 
         if (propertyOwner == null)
-            return new ResponseResultDto<PropertyOwner>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
 
-        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
+        return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override
@@ -50,8 +50,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             if (Objects.equals(propertyOwnerRep.getEmail(), propertyOwnerEmail))
                 propertyOwner = propertyOwnerRep;
         if (propertyOwner == null)
-            return new ResponseResultDto<PropertyOwner>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
-        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+        return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override
@@ -64,7 +64,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null)
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
 
-        return new ResponseResultDto<PropertyOwner>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
+        return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
     }
 
     @Override
@@ -78,6 +78,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
         }
         catch (Exception e) {
+//            return new ResponseResultDto<>(propertyOwner, ResponseStatus.ERROR, )
             throw new PropertyOwnerException("The VAT number is incorrect.");
         }
 
@@ -141,14 +142,15 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     }
 
     @Override
-    public boolean deletePropertyOwner(int propertyOwnerId) throws PropertyOwnerException {
+    public ResponseResultDto<Boolean> deletePropertyOwner(int propertyOwnerId) {
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty())
-            throw new PropertyOwnerException("The property owner cannot be found.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner cannot be found.");
+
         if (propertyOwnerOpt.get().getPropertyList().isEmpty()) {
             propertyOwnerRepository.delete(propertyOwnerOpt.get());
-            return true;
+            return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been deleted.");
         }
-        throw new PropertyOwnerException("The property owner has properties.");
+        return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_CANNOT_BE_DELETED, "The property owner has properties.");
     }
 }
