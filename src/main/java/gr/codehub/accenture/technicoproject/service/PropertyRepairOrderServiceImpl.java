@@ -63,7 +63,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
                 }
             }
 
-        // If there are no property owner we throw an exception.
+        // If there are no property owner we throw a response result.
         if (propertyRepairOrderList.isEmpty())
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owners were not found.");
 
@@ -71,38 +71,58 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public List<PropertyRepairOrder> searchByDate(String firstDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate){
         // Getting the list of property repair orders from query.
         String secondDate = firstDate + "T23:59:59.999";
-        List<PropertyRepairOrder> propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
+        List<PropertyRepairOrder> propertyRepairOrderList;
+        try {
+            propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
+        }
+        catch (Exception e){
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
 
-        // If there are no property repair orders we throw an exception.
+        // If there are no property repair orders we throw a response result.
         if (propertyRepairOrderList.isEmpty())
-            throw new PropertyRepairOrderException("No property repair orders found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair orders were not found.");
 
-        return propertyRepairOrderList;
+        return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
     @Override
-    public List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate){
         // Getting the list of property repair orders from query.
-        List<PropertyRepairOrder> propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
+        List<PropertyRepairOrder> propertyRepairOrderList;
+        try {
+            propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
 
         // If there are no property repair orders we throw an exception.
         if (propertyRepairOrderList.isEmpty())
-            throw new PropertyRepairOrderException("No property repair orders found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair orders were not found.");
 
-        return propertyRepairOrderList;
+        return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
     @Override
-    public PropertyRepairOrder searchByPropertyRepairOrderId(int propertyRepairOrderId) {
+    public ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(int propertyRepairOrderId) {
         // Check if PropertyRepairOrder exists.
-        Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        if (propertyRepairOrderOpt.isEmpty())
-            return null;
+        Optional<PropertyRepairOrder> propertyRepairOrderOpt;
+        try{
+            propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
 
-        return propertyRepairOrderOpt.get();
+        // Check if the property repair order was not found.
+        if (propertyRepairOrderOpt.isEmpty())
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair order was not found.");
+
+        return new ResponseResultDto<>(propertyRepairOrderOpt.get(), ResponseStatus.SUCCESS, "Property repair order was found.");
     }
 
     @Override

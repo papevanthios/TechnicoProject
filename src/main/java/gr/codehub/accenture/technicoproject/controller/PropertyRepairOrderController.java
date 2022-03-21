@@ -28,19 +28,19 @@ public class PropertyRepairOrderController {
     }
 
     @GetMapping(value = "/date/{firstDate}")
-    public List<PropertyRepairOrder> searchByDate(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate){
         return propertyRepairOrderService.searchByDate(firstDate);
     }
 
     @GetMapping(value = "/rangeOfDates/{firstDate}/{secondDate}")
-    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
-                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
+                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate){
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
     // add a getter for a property repair order id
     @GetMapping(value = "/{propertyRepairOrderId}")
-    public PropertyRepairOrder searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
+    public ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
         return propertyRepairOrderService.searchByPropertyRepairOrderId(propertyRepairOrderId);
     }
 

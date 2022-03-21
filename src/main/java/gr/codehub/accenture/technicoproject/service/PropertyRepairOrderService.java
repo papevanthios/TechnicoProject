@@ -12,11 +12,11 @@ public interface PropertyRepairOrderService {
 
     ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId);
 
-    List<PropertyRepairOrder> searchByDate(String firstDate) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate);
 
-    List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate);
 
-    PropertyRepairOrder searchByPropertyRepairOrderId(int propertyRepairOrderId);
+    ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(int propertyRepairOrderId);
 
     PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
 
