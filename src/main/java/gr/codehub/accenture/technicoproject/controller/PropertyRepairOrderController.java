@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
-import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.service.PropertyRepairOrderService;
 import lombok.AllArgsConstructor;
@@ -38,7 +37,6 @@ public class PropertyRepairOrderController {
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
-    // add a getter for a property repair order id
     @GetMapping(value = "/{propertyRepairOrderId}")
     public ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
         return propertyRepairOrderService.searchByPropertyRepairOrderId(propertyRepairOrderId);

@@ -2,7 +2,6 @@ package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
-import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.repository.PropertyOwnerRepository;
@@ -53,14 +52,13 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
 
         // Find property owners at the property repair orders, and add them to the list.
-        for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
-            if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId) {
-                try {
+        try {
+            for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
+                if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId)
                     propertyRepairOrderList.add(propertyRepairOrder);
-                }
-                catch (Exception e) {
-                    return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
-                }
+        }
+        catch (Exception e) {
+                return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
             }
 
         // If there are no property owner we throw a response result.
@@ -128,7 +126,9 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder){
         // Check if body of property repair order is null.
-        if (propertyRepairOrder == null)
+        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null && propertyRepairOrder.getDateOfScheduledRepair() == null &&
+                propertyRepairOrder.getRepairStatus() == null && propertyRepairOrder.getRepairType() == null && propertyRepairOrder.getCostOfRepair() == null &&
+                propertyRepairOrder.getProperty() == null && propertyRepairOrder.getDescription() == null)
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
 
         // Check if PropertyRepairOrder exists.
@@ -199,7 +199,9 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder){
         // Check if body of property repair order is null.
-        if (propertyRepairOrder == null)
+        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null && propertyRepairOrder.getDateOfScheduledRepair() == null &&
+                propertyRepairOrder.getRepairStatus() == null && propertyRepairOrder.getRepairType() == null && propertyRepairOrder.getCostOfRepair() == null &&
+                propertyRepairOrder.getProperty() == null && propertyRepairOrder.getDescription() == null)
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
 
         // Check if Property exists.

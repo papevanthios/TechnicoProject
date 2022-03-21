@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.service;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
-import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 
 import java.util.List;
