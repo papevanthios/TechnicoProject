@@ -127,6 +127,10 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder){
+        // Check if body of property repair order is null.
+        if (propertyRepairOrder == null)
+            return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
+
         // Check if PropertyRepairOrder exists.
         Optional<PropertyRepairOrder> propertyRepairOrderOpt;
         try{
@@ -194,8 +198,20 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder){
+        // Check if body of property repair order is null.
+        if (propertyRepairOrder == null)
+            return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
+
         // Check if Property exists.
-        Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
+        Optional<Property> propertyOpt;
+        try {
+            propertyOpt = propertyRepository.findById(propertyId);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
+
+        // Check if property was not found.
         if (propertyOpt.isEmpty())
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
 
@@ -287,6 +303,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e){
             return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
         }
+
         return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Property repair order was deleted.");
     }
 }
