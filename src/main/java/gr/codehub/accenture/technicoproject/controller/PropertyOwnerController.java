@@ -14,7 +14,7 @@ public class PropertyOwnerController {
     private PropertyOwnerService propertyOwnerService;
 
     @PostMapping(value = "")
-    public ResponseResultDto<Boolean> createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
+    public ResponseResultDto<PropertyOwner> createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 

@@ -17,17 +17,17 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     private PropertyOwnerRepository propertyOwnerRepository;
 
     @Override
-    public ResponseResultDto<Boolean> createPropertyOwner(PropertyOwner propertyOwner) {
+    public ResponseResultDto<PropertyOwner> createPropertyOwner(PropertyOwner propertyOwner) {
         if (propertyOwner == null ||
                 propertyOwner.getVatNumber() == null)
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
         try {
             propertyOwnerRepository.save(propertyOwner);
         }
         catch(Exception e){
-            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
         }
-        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been created.");
+        return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner has been created.");
     }
 
     @Override

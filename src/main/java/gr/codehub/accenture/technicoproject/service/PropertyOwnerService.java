@@ -6,7 +6,7 @@ import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 
 public interface PropertyOwnerService {
 
-    ResponseResultDto<Boolean> createPropertyOwner(PropertyOwner propertyOwner);//done
+    ResponseResultDto<PropertyOwner> createPropertyOwner(PropertyOwner propertyOwner);//done
 
     ResponseResultDto<PropertyOwner> searchByVAT(String propertyOwnerVAT);// done
 
