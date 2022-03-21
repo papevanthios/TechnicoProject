@@ -64,6 +64,10 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId){
+        log.info("");
+        log.info("Searching Property Repair Order...");
+        log.info(LINE_DELIMITER);
+
         // List to return.
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
 
@@ -74,18 +78,29 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
                     propertyRepairOrderList.add(propertyRepairOrder);
         }
         catch (Exception e) {
-                return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+            log.info("Exception enabled.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
             }
 
         // If there are no property owner we throw a response result.
-        if (propertyRepairOrderList.isEmpty())
+        if (propertyRepairOrderList.isEmpty()) {
+            log.info("Property owners were not found.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owners were not found.");
+        }
 
+        log.info("The property repair orders were found.");
+        log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "The property repair orders were found.");
     }
 
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate){
+        log.info("");
+        log.info("Searching Property Repair Order...");
+        log.info(LINE_DELIMITER);
+
         // Getting the list of property repair orders from query.
         String secondDate = firstDate + "T23:59:59.999";
         List<PropertyRepairOrder> propertyRepairOrderList;
@@ -93,31 +108,49 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
         }
         catch (Exception e){
+            log.info("Exception enabled.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         // If there are no property repair orders we throw a response result.
-        if (propertyRepairOrderList.isEmpty())
+        if (propertyRepairOrderList.isEmpty()) {
+            log.info("Property repair orders were not found.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair orders were not found.");
+        }
 
+        log.info("Property repair orders were found.");
+        log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate){
+        log.info("");
+        log.info("Searching Property Repair Order...");
+        log.info(LINE_DELIMITER);
+
         // Getting the list of property repair orders from query.
         List<PropertyRepairOrder> propertyRepairOrderList;
         try {
             propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
         }
         catch (Exception e) {
+            log.info("Exception enabled.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         // If there are no property repair orders we throw an exception.
-        if (propertyRepairOrderList.isEmpty())
+        if (propertyRepairOrderList.isEmpty()) {
+            log.info("Property repair orders were not found.");
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "Property repair orders were not found.");
+        }
 
+        log.info("Property repair orders were found.");
+        log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
