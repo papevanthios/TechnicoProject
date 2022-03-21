@@ -10,39 +10,40 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/property")
 public class PropertyController {
     private PropertyService propertyService;
 
-    @PostMapping(value = "/property/propertyOwner/{propertyOwnerId}")
+    @PostMapping("/propertyOwner/{propertyOwnerId}")
     public Property createProperty(@RequestBody Property property,
                                    @PathVariable ("propertyOwnerId") int propertyOwnerId) throws PropertyException {
         return propertyService.createProperty(property, propertyOwnerId);
     }
 
-    @GetMapping(value = "/property/propertyIdNumber/{propertyIdNumber}")
+    @GetMapping("/propertyIdNumber/{propertyIdNumber}")
     public Property searchPropertyByPropertyIdNumber(@PathVariable("propertyIdNumber") long propertyIdNumber) throws PropertyException {
         return propertyService.searchPropertyByPropertyIdNumber(propertyIdNumber);
     }
 
-    @GetMapping(value = "/property/vatNumber/{propertyOwnerVAT}")
+    @GetMapping("/vatNumber/{propertyOwnerVAT}")
     public List<Property> searchPropertyByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) throws PropertyException {
         return propertyService.searchPropertyByVAT(propertyOwnerVAT);
     }
 
-    @PutMapping(value = "/property/{propertyId}")
+    @PutMapping("/{propertyId}")
     public Property updatePropertyFields(@PathVariable("propertyId") int propertyId,
                                          @RequestBody Property property) throws PropertyException {
         return propertyService.updatePropertyFields(propertyId, property);
     }
 
-    @PutMapping(value = "/property/{propertyId}/propertyOwner/{propertyOwnerId}")
+    @PutMapping("/{propertyId}/propertyOwner/{propertyOwnerId}")
     public Property updatePropertyFieldsAndPropertyOwner(@PathVariable("propertyId") int propertyId,
                                                          @PathVariable("propertyOwnerId") int propertyOwnerId,
                                                          @RequestBody Property property) throws PropertyException {
         return propertyService.updatePropertyFieldsAndPropertyOwner(propertyId, propertyOwnerId, property);
     }
 
-    @DeleteMapping(value = "/property/{propertyIdNumber}")
+    @DeleteMapping("/{propertyIdNumber}")
     public boolean deletePropertyOwner(@PathVariable("propertyIdNumber") int propertyIdNumber) throws PropertyException {
         return propertyService.deleteProperty(propertyIdNumber);
     }

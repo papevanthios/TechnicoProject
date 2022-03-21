@@ -22,6 +22,7 @@ public class Property {
     @Column(nullable = false)
     private PropertyType propertyType;
     @ManyToOne
+    //@JoinColumn(, )
     private PropertyOwner propertyOwner;
     @JsonIgnore
     @OneToMany(mappedBy = "property")

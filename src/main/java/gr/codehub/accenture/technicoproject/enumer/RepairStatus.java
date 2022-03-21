@@ -1,5 +1,5 @@
 package gr.codehub.accenture.technicoproject.enumer;
 
 public enum RepairStatus {
-    PENDING, INPROGRESS, COMPLETE
+    PENDING, IN_PROGRESS, COMPLETE
 }
