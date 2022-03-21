@@ -149,6 +149,7 @@ public class PropertyServiceImpl implements PropertyService {
         // Setting Property Owner.
         try {
             propertyUpd.setPropertyOwner(propertyOwnerOpt.get());
+            propertyRepository.save(propertyUpd);
         }
         catch (Exception e) {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
