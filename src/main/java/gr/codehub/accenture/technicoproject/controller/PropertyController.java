@@ -27,7 +27,7 @@ public class PropertyController {
     }
 
     @GetMapping("/vatNumber/{propertyOwnerVAT}")
-    public List<Property> searchPropertyByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) throws PropertyException {
+    public ResponseResultDto<List<Property>> searchPropertyByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT) {
         return propertyService.searchPropertyByVAT(propertyOwnerVAT);
     }
 

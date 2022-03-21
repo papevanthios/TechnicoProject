@@ -12,7 +12,7 @@ public interface PropertyService {
 
     ResponseResultDto<Property> searchPropertyByPropertyIdNumber(long propertyIdNumber);
 
-    List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException;
+    ResponseResultDto<List<Property>> searchPropertyByVAT(int propertyOwnerVAT);
 
     Property updatePropertyFields(int propertyId, Property property) throws PropertyException;
 

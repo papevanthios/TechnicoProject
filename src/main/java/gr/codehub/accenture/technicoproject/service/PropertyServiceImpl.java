@@ -49,19 +49,24 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (property == null)
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
-        return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "The property found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
+        return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was found.");
     }
 
     @Override
-    public List<Property> searchPropertyByVAT(int propertyOwnerVAT) throws PropertyException {
-        List<Property> property = new ArrayList<>();
-        for (Property propertyRep : propertyRepository.findAll())
-            if (Integer.parseInt(propertyRep.getPropertyOwner().getVatNumber()) == propertyOwnerVAT)
-                property.add(propertyRep);
-        if (property.isEmpty())
-            throw new PropertyException("Property not found.");
-        return property;
+    public ResponseResultDto<List<Property>> searchPropertyByVAT(int propertyOwnerVAT) {
+        List<Property> propertyList = new ArrayList<>();
+        try {
+            for (Property propertyRep : propertyRepository.findAll())
+                if (Integer.parseInt(propertyRep.getPropertyOwner().getVatNumber()) == propertyOwnerVAT)
+                    propertyList.add(propertyRep);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
+        if (propertyList.isEmpty())
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
+        return new ResponseResultDto<>(propertyList, ResponseStatus.SUCCESS, "Properties found.");
     }
 
     @Override
