@@ -1,7 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
 import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
-import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
@@ -34,8 +33,8 @@ public class PropertyOwnerController {
     }
 
     @PutMapping(value = "/{propertyOwnerId}")// to do
-    public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
-                                             @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
+    public ResponseResultDto<PropertyOwner> updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
+                                             @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
     }
 
