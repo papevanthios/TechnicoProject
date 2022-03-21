@@ -22,7 +22,7 @@ public class Property {
     @Column(nullable = false)
     private PropertyType propertyType;
     @ManyToOne
-    //@JoinColumn(, )
+    @JoinColumn(name = "propertyOwnerId", referencedColumnName= "propertyOwnerId")
     private PropertyOwner propertyOwner;
     @JsonIgnore
     @OneToMany(mappedBy = "property")

@@ -1,5 +1,7 @@
 package gr.codehub.accenture.technicoproject.enumer;
 
 public enum PropertyType {
-    DETACHED, SEMIDETACHED, FLAT
+    DETACHED,
+    SEMI_DETACHED,
+    FLAT
 }
