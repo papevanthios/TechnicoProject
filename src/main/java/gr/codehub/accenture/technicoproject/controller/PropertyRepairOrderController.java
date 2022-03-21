@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.service.PropertyRepairOrderService;
@@ -16,13 +17,13 @@ public class PropertyRepairOrderController {
     private PropertyRepairOrderService propertyRepairOrderService;
 
     @PostMapping (value = "/property/{propertyId}")
-    public PropertyRepairOrder createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
-                                                         @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+    public ResponseResultDto<Boolean> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
+                                                                @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
     }
 
     @GetMapping(value = "/useId/{propertyOwnerId}")
-    public List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId){
         return propertyRepairOrderService.searchByPropertyOwnerIdForPropertyRepairOrder(propertyOwnerId);
     }
 

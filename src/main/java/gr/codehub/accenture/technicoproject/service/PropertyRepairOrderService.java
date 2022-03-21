@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 
@@ -7,9 +8,9 @@ import java.util.List;
 
 public interface PropertyRepairOrderService {
 
-    PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException;
+    ResponseResultDto<Boolean> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId);
 
-    List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId);
 
     List<PropertyRepairOrder> searchByDate(String firstDate) throws PropertyRepairOrderException;
 

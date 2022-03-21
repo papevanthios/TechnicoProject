@@ -1,5 +1,7 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
+import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
 import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
@@ -22,38 +24,50 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     private PropertyRepository propertyRepository;
 
     @Override
-    public PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException {
-        // Check if Property exists.
+    public ResponseResultDto<Boolean> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
+        // Check if property exists.
         Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
         if (propertyOpt.isEmpty())
-            throw new PropertyRepairOrderException("The Property does not exist.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_NOT_FOUND, "The property was not found.");
 
-        // Check if Property Repair Order is not null.
+        // Check if Property Repair Order exists.
         if (propertyRepairOrder == null)
-            throw new PropertyRepairOrderException("Missing Property Repair Order.");
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_NOT_FOUND, "The property repair order was not found.");
 
-        // Set date of registration with local date time and set the property owner.
-        propertyRepairOrder.setDateOfRegistrationOrder(LocalDateTime.now());
-        propertyRepairOrder.setProperty(propertyOpt.get());
+        try {
+            // Set date of registration with local date time and set the property owner.
+            propertyRepairOrder.setDateOfRegistrationOrder(LocalDateTime.now());
+            propertyRepairOrder.setProperty(propertyOpt.get());
 
-        return propertyRepairOrderRepository.save(propertyRepairOrder);
+            propertyRepairOrderRepository.save(propertyRepairOrder);
+            return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Created property repair order.");
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_REPAIR_ORDER_CANNOT_BE_CREATED, "The property repair order cannot be created.");
+        }
     }
 
     @Override
-    public List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId){
         // List to return.
         List<PropertyRepairOrder> propertyRepairOrderList = new ArrayList<>();
 
         // Find property owners at the property repair orders, and add them to the list.
         for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
-            if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId)
-                propertyRepairOrderList.add(propertyRepairOrder);
+            if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId) {
+                try {
+                    propertyRepairOrderList.add(propertyRepairOrder);
+                }
+                catch (Exception e) {
+                    return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+                }
+            }
 
         // If there are no property owner we throw an exception.
         if (propertyRepairOrderList.isEmpty())
-            throw new PropertyRepairOrderException("No Property Owners with that id has be found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owners were not found.");
 
-        return propertyRepairOrderList;
+        return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "The property repair orders were found.");
     }
 
     @Override
