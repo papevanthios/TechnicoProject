@@ -45,15 +45,15 @@ public class PropertyRepairOrderController {
     }
 
     @PutMapping(value = "/{propertyRepairOrderId}")
-    public PropertyRepairOrder updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
-                                                               @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                               @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
     }
 
     @PutMapping(value = "/{propertyRepairOrderId}/property/{propertyId}")
-    public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
                                                                           @PathVariable("propertyId") int propertyId,
-                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.updatePropertyRepairOrderFieldsAndProperty(propertyRepairOrderId, propertyId, propertyRepairOrder);
     }
 
