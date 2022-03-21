@@ -283,6 +283,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwnerOpt.get().getPropertyList().isEmpty()) {
             try {
                 propertyOwnerRepository.delete(propertyOwnerOpt.get());
+                log.info("Successful deletion.");
+                log.info(LINE_DELIMITER);
+                return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been deleted.");
             }
             catch(Exception e){
                 log.info("Exception enabled.");
@@ -291,8 +294,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             }
 
         }
-        log.info("Successful deletion.");
+        log.info("Property owner has properties.");
         log.info(LINE_DELIMITER);
-        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been deleted.");
+        return new ResponseResultDto<>(false, ResponseStatus.ERROR, "Property owner has properties.");
     }
 }
