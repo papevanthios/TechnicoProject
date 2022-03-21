@@ -15,6 +15,8 @@ public interface PropertyRepairOrderService {
 
     List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException;
 
+    PropertyRepairOrder searchByPropertyRepairOrderId(int propertyRepairOrderId);
+
     PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
 
     PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;

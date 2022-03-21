@@ -82,6 +82,16 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
+    public PropertyRepairOrder searchByPropertyRepairOrderId(int propertyRepairOrderId) {
+        // Check if PropertyRepairOrder exists.
+        Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
+        if (propertyRepairOrderOpt.isEmpty())
+            return null;
+
+        return propertyRepairOrderOpt.get();
+    }
+
+    @Override
     public PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
         // Check if PropertyRepairOrder exists.
         Optional<PropertyRepairOrder> propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);

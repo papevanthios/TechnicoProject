@@ -37,6 +37,12 @@ public class PropertyRepairOrderController {
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
+    // add a getter for a property repair order id
+    @GetMapping(value = "/{propertyRepairOrderId}")
+    public PropertyRepairOrder searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
+        return propertyRepairOrderService.searchByPropertyRepairOrderId(propertyRepairOrderId);
+    }
+
     @PutMapping(value = "/{propertyRepairOrderId}")
     public PropertyRepairOrder updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
                                                                @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
