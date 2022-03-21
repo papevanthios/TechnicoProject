@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
+import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
@@ -10,35 +11,29 @@ import org.springframework.web.bind.annotation.*;
 public class PropertyOwnerController {
     private PropertyOwnerService propertyOwnerService;
 
-    // property owner create maria
-
-    @PostMapping(value="/propertyOwner")
-    public PropertyOwner createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
+    @PostMapping(value = "/propertyOwner")
+    public PropertyOwner createPropertyOwner(@RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 
-    // property owner search1 maria
-
-    @GetMapping(value = "/propertyOwner/{propertyOwnerVAT}")//for now return null (services need to be done first)
-    public  PropertyOwner searchByVAT(@PathVariable("propertyOwnerVAT") int propertyOwnerVAT){
+    @GetMapping(value = "/propertyOwner/vatNumber/{propertyOwnerVAT}")
+    public PropertyOwner searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") String propertyOwnerVAT) throws PropertyOwnerException {
         return propertyOwnerService.searchByVAT(propertyOwnerVAT);
     }
 
-//    We must create a new search by email, the url cannot recognise the difference with the search by vat
+    @GetMapping(value = "/propertyOwner/email/{propertyOwnerEmail}")
+    public PropertyOwner searchPropertyOwnerByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) throws PropertyOwnerException {
+        return propertyOwnerService.searchByEmail(propertyOwnerEmail);
+    }
 
-//     property owner search2 maria
-//
-//    @GetMapping(value = "/propertyOwner/{propertyOwnerEmail}")//for now return null (services need to be done first)
-//    public  PropertyOwner searchByEmail(@PathVariable("propertyOwnerEmail") int propertyOwnerEmail){
-//        PropertyOwner Email = null;
-//        return null;
-//    }
+    @PutMapping(value = "/propertyOwner/{propertyOwnerId}")
+    public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
+                                             @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
+        return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
+    }
 
-    // property owner update aris
-
-    // property owner delete aris
-
-
-
-
+    @DeleteMapping(value = "/propertyOwner/{propertyOwnerId}")
+    public boolean deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyOwnerException {
+        return propertyOwnerService.deletePropertyOwner(propertyOwnerId);
+    }
 }

@@ -1,39 +1,39 @@
 package gr.codehub.accenture.technicoproject.model;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @Entity
 public class PropertyOwner {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-//    @Column(unique=true)// To ensure a field value is unique you can write
-//    @Size(min=9, max=9)// specific format for VAT with 9 digits
-    private int vatNumber;
-
+    private int propertyOwnerId;
+    @Column(unique=true, length = 9, nullable = false)
+    @Size(min=9, max=9)
+    private String vatNumber;
+    @Column(nullable = false)
     private String firstName;
-
+    @Column(nullable = false)
     private String lastName;
-
+    @Column(nullable = false)
     private String address;
-
-//    @Size(min=10, max=10) // specific format for phoneNumber with 10 digits
+    @Column(unique=true, length = 10, nullable = false)
+    @Size(min=10, max=10)
     private String phoneNumber;
-
-    private String email;// we need a format constraint here @ and dot
-
+    @Email
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
     private String username;
-
+    @Column(nullable = false)
     private String password;
-
-//    @OneToOne
-//    private Property property;
+    @JsonIgnore
+    @OneToMany(mappedBy = "propertyOwner")
+    private List<Property> propertyList;
 }
