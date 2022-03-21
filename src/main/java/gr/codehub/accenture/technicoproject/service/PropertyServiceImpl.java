@@ -70,57 +70,91 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property updatePropertyFields(int propertyId, Property property) throws PropertyException {
-        // Check if Property exists.
-        Optional<Property> propertyOpt = propertyRepository.findById(propertyId);
+    public ResponseResultDto<Property> updatePropertyFields(int propertyId, Property property) {
+        // Check if property is null
+        if (    property.getPropertyType() == null &&
+                property.getPropertyAddress() == null &&
+                property.getPropertyIdentificationNumber() == null &&
+                property.getYearOfConstruction() == null)
+            return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property.");
+
+        // Check if Property with propertyId exists.
+        Optional<Property> propertyOpt;
+        try {
+            propertyOpt = propertyRepository.findById(propertyId);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
         if (propertyOpt.isEmpty())
-            throw new PropertyException("The Property can not be found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
 
         // Check every possible field for user input, and update it.
         try {
             if (property.getPropertyType() != null)
                 propertyOpt.get().setPropertyType(property.getPropertyType());
         } catch (Exception e) {
-            throw new PropertyException("The Property Type is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property type is incorrect.");
         }
 
         try {
             if (property.getPropertyAddress() != null)
                 propertyOpt.get().setPropertyAddress(property.getPropertyAddress());
         } catch (Exception e) {
-            throw new PropertyException("The Address is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property address is incorrect.");
         }
 
         try {
             if (property.getPropertyIdentificationNumber() != null)
                 propertyOpt.get().setPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
         } catch (Exception e) {
-            throw new PropertyException("The repair type is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property identification number is incorrect.");
         }
 
         try {
             if (property.getYearOfConstruction() != null)
                 propertyOpt.get().setYearOfConstruction(property.getYearOfConstruction());
         } catch (Exception e) {
-            throw new PropertyException("The cost of repair is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property year of construction is incorrect.");
         }
 
-        return propertyRepository.save(propertyOpt.get());
+        try {
+            propertyRepository.save(propertyOpt.get());
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
+        return new ResponseResultDto<>(propertyOpt.get(), ResponseStatus.SUCCESS, "Property was updated.");
     }
 
     @Override
-    public Property updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) throws PropertyException {
+    public ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) {
         // Check if Property Owner exists.
-        Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
+        Optional<PropertyOwner> propertyOwnerOpt;
+        try {
+            propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
         if (propertyOwnerOpt.isEmpty())
-            throw new PropertyException("The Property Owner does not exist.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owner was not found.");
 
         // Check if Property exists and Update Fields.
-        Property propertyUpd = updatePropertyFields(propertyId, property);
+        ResponseResultDto<Property> propertyUpdDto = updatePropertyFields(propertyId, property);
+        Property propertyUpd = propertyUpdDto.getData();
+        if (propertyUpd == null)
+            return new ResponseResultDto<>(null, propertyUpdDto.getStatus(), propertyUpdDto.getMessage());
 
         // Setting Property Owner.
-        propertyUpd.setPropertyOwner(propertyOwnerOpt.get());
-        return propertyRepository.save(propertyUpd);
+        try {
+            propertyUpd.setPropertyOwner(propertyOwnerOpt.get());
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
+
+        return new ResponseResultDto<>(propertyUpd, ResponseStatus.SUCCESS, "Property was updated.");
     }
 
     @Override

@@ -32,15 +32,15 @@ public class PropertyController {
     }
 
     @PutMapping("/{propertyId}")
-    public Property updatePropertyFields(@PathVariable("propertyId") int propertyId,
-                                         @RequestBody Property property) throws PropertyException {
+    public ResponseResultDto<Property> updatePropertyFields(@PathVariable("propertyId") int propertyId,
+                                         @RequestBody Property property) {
         return propertyService.updatePropertyFields(propertyId, property);
     }
 
     @PutMapping("/{propertyId}/propertyOwner/{propertyOwnerId}")
-    public Property updatePropertyFieldsAndPropertyOwner(@PathVariable("propertyId") int propertyId,
+    public ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(@PathVariable("propertyId") int propertyId,
                                                          @PathVariable("propertyOwnerId") int propertyOwnerId,
-                                                         @RequestBody Property property) throws PropertyException {
+                                                         @RequestBody Property property) {
         return propertyService.updatePropertyFieldsAndPropertyOwner(propertyId, propertyOwnerId, property);
     }
 

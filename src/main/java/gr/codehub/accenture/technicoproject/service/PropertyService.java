@@ -14,9 +14,9 @@ public interface PropertyService {
 
     ResponseResultDto<List<Property>> searchPropertyByVAT(int propertyOwnerVAT);
 
-    Property updatePropertyFields(int propertyId, Property property) throws PropertyException;
+    ResponseResultDto<Property> updatePropertyFields(int propertyId, Property property);
 
-    Property updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) throws PropertyException;
+    ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property);
 
     boolean deleteProperty(int propertyId) throws PropertyException;
 }
