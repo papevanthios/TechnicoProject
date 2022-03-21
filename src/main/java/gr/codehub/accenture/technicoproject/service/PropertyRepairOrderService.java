@@ -1,25 +1,25 @@
 package gr.codehub.accenture.technicoproject.service;
 
-import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 
 import java.util.List;
 
 public interface PropertyRepairOrderService {
 
-    PropertyRepairOrder createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) throws PropertyRepairOrderException;
+    ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId);
 
-    List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId);
 
-    List<PropertyRepairOrder> searchByDate(String firstDate) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate);
 
-    List<PropertyRepairOrder> searchByRangeOfDates(String firstDate, String secondDate) throws PropertyRepairOrderException;
+    ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate);
 
-    PropertyRepairOrder searchByPropertyRepairOrderId(int propertyRepairOrderId);
+    ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(int propertyRepairOrderId);
 
-    PropertyRepairOrder updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
+    ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder);
 
-    PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException;
+    ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder);
 
-    boolean deletePropertyRepairOrder(int propertyRepairOrderId) throws PropertyRepairOrderException;
+    ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId);
 }

@@ -1,6 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
-import gr.codehub.accenture.technicoproject.exception.PropertyRepairOrderException;
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.model.PropertyRepairOrder;
 import gr.codehub.accenture.technicoproject.service.PropertyRepairOrderService;
 import lombok.AllArgsConstructor;
@@ -16,48 +16,47 @@ public class PropertyRepairOrderController {
     private PropertyRepairOrderService propertyRepairOrderService;
 
     @PostMapping (value = "/property/{propertyId}")
-    public PropertyRepairOrder createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
-                                                         @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+    public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
+                                                                @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
     }
 
     @GetMapping(value = "/useId/{propertyOwnerId}")
-    public List<PropertyRepairOrder> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(@PathVariable("propertyOwnerId") int propertyOwnerId){
         return propertyRepairOrderService.searchByPropertyOwnerIdForPropertyRepairOrder(propertyOwnerId);
     }
 
     @GetMapping(value = "/date/{firstDate}")
-    public List<PropertyRepairOrder> searchByDate(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate){
         return propertyRepairOrderService.searchByDate(firstDate);
     }
 
     @GetMapping(value = "/rangeOfDates/{firstDate}/{secondDate}")
-    public List<PropertyRepairOrder> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
-                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate) throws PropertyRepairOrderException {
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(@PathVariable("firstDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String firstDate,
+                                                          @PathVariable("secondDate") @DateTimeFormat(pattern = "yyyy-MM-dd") String secondDate){
         return propertyRepairOrderService.searchByRangeOfDates(firstDate, secondDate);
     }
 
-    // add a getter for a property repair order id
     @GetMapping(value = "/{propertyRepairOrderId}")
-    public PropertyRepairOrder searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
+    public ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) {
         return propertyRepairOrderService.searchByPropertyRepairOrderId(propertyRepairOrderId);
     }
 
     @PutMapping(value = "/{propertyRepairOrderId}")
-    public PropertyRepairOrder updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
-                                                               @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+                                                               @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.updatePropertyRepairOrderFields(propertyRepairOrderId, propertyRepairOrder);
     }
 
     @PutMapping(value = "/{propertyRepairOrderId}/property/{propertyId}")
-    public PropertyRepairOrder updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId,
                                                                           @PathVariable("propertyId") int propertyId,
-                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder) throws PropertyRepairOrderException {
+                                                                          @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.updatePropertyRepairOrderFieldsAndProperty(propertyRepairOrderId, propertyId, propertyRepairOrder);
     }
 
     @DeleteMapping(value = "/{propertyRepairOrderId}")
-    public boolean deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId) throws PropertyRepairOrderException {
+    public ResponseResultDto<Boolean> deletePropertyRepairOrder(@PathVariable("propertyRepairOrderId") int propertyRepairOrderId){
         return propertyRepairOrderService.deletePropertyRepairOrder(propertyRepairOrderId);
     }
 }
