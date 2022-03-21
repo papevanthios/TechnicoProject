@@ -1,5 +1,7 @@
 package gr.codehub.accenture.technicoproject.service;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
+import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
 import gr.codehub.accenture.technicoproject.exception.PropertyException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
@@ -19,14 +21,19 @@ public class PropertyServiceImpl implements PropertyService {
     private PropertyOwnerRepository propertyOwnerRepository;
 
     @Override
-    public Property createProperty(Property property, int propertyOwnerId) throws PropertyException {
+    public ResponseResultDto<Property> createProperty(Property property, int propertyOwnerId) {
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty())
-            throw new PropertyException("The property owner does not exist");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         if (property == null)
-            throw new PropertyException("Missing Property information.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property owner has no properties.");
         property.setPropertyOwner(propertyOwnerOpt.get());
-        return propertyRepository.save(property);
+        try {
+            propertyRepository.save(property);
+        } catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error has occurred.");
+        }
+        return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was created.");
     }
 
     @Override

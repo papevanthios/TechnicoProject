@@ -1,5 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.exception.PropertyException;
 import gr.codehub.accenture.technicoproject.model.Property;
 import gr.codehub.accenture.technicoproject.service.PropertyService;
@@ -15,8 +16,8 @@ public class PropertyController {
     private PropertyService propertyService;
 
     @PostMapping("/propertyOwner/{propertyOwnerId}")
-    public Property createProperty(@RequestBody Property property,
-                                   @PathVariable ("propertyOwnerId") int propertyOwnerId) throws PropertyException {
+    public ResponseResultDto<Property> createProperty(@RequestBody Property property,
+                                                     @PathVariable ("propertyOwnerId") int propertyOwnerId) {
         return propertyService.createProperty(property, propertyOwnerId);
     }
 

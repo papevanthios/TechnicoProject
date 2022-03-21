@@ -1,9 +1,10 @@
 package gr.codehub.accenture.technicoproject.dto;
 
+import gr.codehub.accenture.technicoproject.enumer.ResponseStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.ResponseStatus;
+
 
 @Data
 @AllArgsConstructor
