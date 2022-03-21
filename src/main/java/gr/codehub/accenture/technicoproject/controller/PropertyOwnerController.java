@@ -27,6 +27,11 @@ public class PropertyOwnerController {
         return propertyOwnerService.searchByEmail(propertyOwnerEmail);
     }
 
+    @GetMapping(value = "/{propertyOwnerId}")
+    public PropertyOwner searchPropertyOwnerById(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyOwnerException {
+        return propertyOwnerService.searchByPropertyOwnerId(propertyOwnerId);
+    }
+
     @PutMapping(value = "/{propertyOwnerId}")
     public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
                                              @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
