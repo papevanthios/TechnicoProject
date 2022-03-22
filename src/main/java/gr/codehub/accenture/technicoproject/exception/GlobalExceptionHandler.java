@@ -12,8 +12,20 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Objects;
 
+/**
+ * Global exception handler, extends the response entity exception handler and the class handles the field errors of
+ * the project models and returns a response entity of response result dto of object Boolean.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+    /**
+     * This method delegates to handleExceptionInternal.
+     * @param ex the target exception
+     * @param headers the headers to be written to the response
+     * @param status the selected response status
+     * @param request the current request
+     * @return a ResponseEntity instance
+     */
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex, HttpHeaders headers,
