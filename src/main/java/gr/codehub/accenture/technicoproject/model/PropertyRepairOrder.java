@@ -5,6 +5,7 @@ import gr.codehub.accenture.technicoproject.enumer.RepairType;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -14,18 +15,30 @@ public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer caseId;
+
+
     @Column(nullable = false)
     private LocalDateTime dateOfRegistrationOrder;
-    @Column(nullable = false)
+
+    @NotNull(message = "DateOfScheduledRepair cannot be null")
+    @Column
     private LocalDateTime dateOfScheduledRepair;
-    @Column(nullable = false)
+
+    @NotNull(message = "RepairStatus cannot be null")
+    @Column
     private RepairStatus repairStatus;
-    @Column(nullable = false)
+
+    @NotNull(message = "RepairType cannot be null")
+    @Column
     private RepairType repairType;
-    @Column(nullable = false)
+
+    @NotNull(message = "CostOfRepair cannot be null")
+    @Column
     private BigDecimal costOfRepair;
+
     @ManyToOne
     @JoinColumn(name = "propertyId", referencedColumnName= "propertyId")
     private Property property;
+
     private String description;
 }
