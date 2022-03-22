@@ -262,13 +262,20 @@ public class PropertyServiceImpl implements PropertyService {
         return new ResponseResultDto<>(propertyOpt.get(), ResponseStatus.SUCCESS, "Property was updated.");
     }
 
+    /**
+     * Updating property fields and property owner.
+     * @param propertyId property ID.
+     * @param propertyOwnerId property owner ID.
+     * @param property property information.
+     * @return a response result with appropriate message.
+     */
     @Override
     public ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(int propertyId, int propertyOwnerId, Property property) {
         log.info("");
         log.info("Updating property fields and property owner...");
         log.info(LINE_DELIMITER);
 
-        // Check if Property Owner exists.
+        // Check if property owner with propertyOwnerId exists.
         Optional<PropertyOwner> propertyOwnerOpt;
         try {
             propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
@@ -278,19 +285,20 @@ public class PropertyServiceImpl implements PropertyService {
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
+
         if (propertyOwnerOpt.isEmpty()) {
             log.error("Property owner was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owner was not found.");
         }
 
-        // Check if Property exists and Update Fields.
+        // Check if property exists and update fields.
         ResponseResultDto<Property> propertyUpdDto = updatePropertyFields(propertyId, property);
         Property propertyUpd = propertyUpdDto.getData();
         if (propertyUpd == null)
             return new ResponseResultDto<>(null, propertyUpdDto.getStatus(), propertyUpdDto.getMessage());
 
-        // Setting Property Owner.
+        // Setting property owner, save it into DB and return it.
         try {
             propertyUpd.setPropertyOwner(propertyOwnerOpt.get());
             propertyRepository.save(propertyUpd);
