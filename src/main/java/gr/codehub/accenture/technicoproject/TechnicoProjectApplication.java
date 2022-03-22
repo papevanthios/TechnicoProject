@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TechnicoProjectApplication {
     /**
      * The start of Spring boot application.
+     *
      * @param args
      */
     public static void main(String[] args) {

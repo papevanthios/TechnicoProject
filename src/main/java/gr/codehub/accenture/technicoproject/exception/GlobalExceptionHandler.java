@@ -20,9 +20,10 @@ import java.util.Objects;
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * This method delegates to handleExceptionInternal.
-     * @param ex the target exception
+     *
+     * @param ex      the target exception
      * @param headers the headers to be written to the response
-     * @param status the selected response status
+     * @param status  the selected response status
      * @param request the current request
      * @return a ResponseEntity instance
      */
@@ -31,10 +32,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             MethodArgumentNotValidException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
 
-        return new ResponseEntity<>(new ResponseResultDto<>(
-                false,
-                ResponseStatus.ERROR,
-                "Field " + Objects.requireNonNull(ex.getFieldError()).getField()+ ": " + ex.getFieldError().getDefaultMessage()),
-                HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ResponseResultDto<>(false, ResponseStatus.ERROR,
+                "Field " + Objects.requireNonNull(ex.getFieldError()).getField() + ": " +
+                        ex.getFieldError().getDefaultMessage()), HttpStatus.BAD_REQUEST);
     }
 }

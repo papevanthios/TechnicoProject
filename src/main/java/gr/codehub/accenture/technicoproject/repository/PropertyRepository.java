@@ -5,7 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Repository for Property
+ * A repository that extends the JPA repository for Property.
+ * JPA specific extension of org.springframework.data.repository.Repository.
  */
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {

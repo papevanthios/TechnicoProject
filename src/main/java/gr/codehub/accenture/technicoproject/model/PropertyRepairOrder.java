@@ -39,7 +39,7 @@ public class PropertyRepairOrder {
     private BigDecimal costOfRepair;
 
     @ManyToOne
-    @JoinColumn(name = "propertyId", referencedColumnName= "propertyId")
+    @JoinColumn(name = "propertyId", referencedColumnName = "propertyId")
     private Property property;
 
     private String description;

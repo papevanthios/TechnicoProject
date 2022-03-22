@@ -28,7 +28,6 @@ public class PropertyOwnerController {
 
     /**
      * Creating an owner with a POST mapping.
-     *
      * @param propertyOwner owner's data from JSON object
      * @return  owner's data, status of request and a message
      */
@@ -39,9 +38,8 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his VAT number with a GET mapping.
-     *
-     * @param propertyOwnerVAT  owner's VAT number, 9-digits number
-     * @return  owner's data, status of request and a message
+     * @param propertyOwnerVAT owner's VAT number, 9-digits number
+     * @return owner's data, status of request and a message
      */
     @GetMapping(value = "/vatNumber/{propertyOwnerVAT}")
     public ResponseResultDto<PropertyOwner> searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") String propertyOwnerVAT) {
@@ -50,9 +48,8 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his email with a GET mapping.
-     *
-     * @param propertyOwnerEmail  owner's email, []@[].[]
-     * @return  owner's data, status of request and a message
+     * @param propertyOwnerEmail owner's email, []@[].[]
+     * @return owner's data, status of request and a message
      */
     @GetMapping(value = "/email/{propertyOwnerEmail}")
     public ResponseResultDto<PropertyOwner> searchPropertyOwnerByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) {
@@ -61,9 +58,8 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his id primary key with a GET mapping.
-     *
-     * @param propertyOwnerId  owner's id primary key, from 1 to ...
-     * @return  owner's data, status of request and a message
+     * @param propertyOwnerId owner's id primary key, from 1 to ...
+     * @return owner's data, status of request and a message
      */
     @GetMapping(value = "/{propertyOwnerId}")
     public ResponseResultDto<PropertyOwner> searchPropertyOwnerById(@PathVariable("propertyOwnerId") int propertyOwnerId) {
@@ -72,12 +68,11 @@ public class PropertyOwnerController {
 
     /**
      * Updates owner's details by his id primary key with a PUT mapping.
-     *
      * @param propertyOwnerId owner's id primary key, from 1 to ...
-     * @param propertyOwner  owner's details to be updated, can be one or more
-     * @return  owner's data, status of request and a message
+     * @param propertyOwner owner's details to be updated, can be one or more
+     * @return owner's data, status of request and a message
      */
-    @PutMapping(value = "/{propertyOwnerId}")// to do
+    @PutMapping(value = "/{propertyOwnerId}")
     public ResponseResultDto<PropertyOwner> updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
                                                                 @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
@@ -85,9 +80,8 @@ public class PropertyOwnerController {
 
     /**
      * Deletes the owner by his id primary key with a DELETE mapping.
-     *
-     * @param propertyOwnerId  owner's id primary key, from 1 to ...
-     * @return  boolean, true if deletion is successfull otherwise returns false
+     * @param propertyOwnerId owner's id primary key, from 1 to ...
+     * @return boolean, true if deletion is successful, otherwise returns false
      */
     @DeleteMapping(value = "/{propertyOwnerId}")
     public ResponseResultDto<Boolean> deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) {

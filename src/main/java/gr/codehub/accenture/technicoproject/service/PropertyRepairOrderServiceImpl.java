@@ -19,28 +19,28 @@ import java.util.Optional;
  * Class responsible for managing property repair order services.
  * Property repair order service implementation, implements the services for the property repair orders and in extend
  * these services will be used in the property repair order controller.
- *
+ * <p>
  * Services:
- *      Create property repair order.
- *      Search property repair orders with property owner id.
- *      Search property repair orders by date.
- *      Search property repair orders by range of dates.
- *      Search property repair order by property repair order id.
- *      Update property repair order fields.
- *      Update property repair order fields and property.
- *      Delete property repair order.
+ * Create property repair order.
+ * Search property repair orders with property owner id.
+ * Search property repair orders by date.
+ * Search property repair orders by range of dates.
+ * Search property repair order by property repair order id.
+ * Update property repair order fields.
+ * Update property repair order fields and property.
+ * Delete property repair order.
  */
 @Service
 @AllArgsConstructor
 @Slf4j
 public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService {
+    private static final String LINE_DELIMITER = "---------------------------------------";
     private PropertyRepairOrderRepository propertyRepairOrderRepository;
     private PropertyRepository propertyRepository;
 
-    private static final String LINE_DELIMITER = "---------------------------------------";
-
     /**
      * Get an object of class PropertyRepairOrder from controller, an integer for the property id and creating
+     *
      * @param propertyRepairOrder an object of class PropertyRepairOrder
      * @param propertyId          an integer for property id
      * @return a response result object of propertyRepairOrder object of class ResponseResultDto
@@ -75,8 +75,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             log.info("Created property repair order.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(propertyRepairOrder, ResponseStatus.SUCCESS, "Created property repair order.");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -85,6 +84,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get an integer of property owner id and search it from the service's repository.
+     *
      * @param propertyOwnerId an integer of property owner id
      * @return a response result of a list of objects of class property repair order
      */
@@ -102,8 +102,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             for (PropertyRepairOrder propertyRepairOrder : propertyRepairOrderRepository.findAll())
                 if (propertyRepairOrder.getProperty().getPropertyOwner().getPropertyOwnerId() == propertyOwnerId)
                     propertyRepairOrderList.add(propertyRepairOrder);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -123,6 +122,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get a string of date and search it from service's repository.
+     *
      * @param firstDate a string of date
      * @return a response result of a list of objects of class property repair order
      */
@@ -136,9 +136,8 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         String secondDate = firstDate + "T23:59:59.999";
         List<PropertyRepairOrder> propertyRepairOrderList;
         try {
-            propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
-        }
-        catch (Exception e) {
+            propertyRepairOrderList = propertyRepairOrderRepository.getDataBetween(firstDate, secondDate);
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -158,6 +157,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get two strings of dates and makes a search for property repair orders into service's repository.
+     *
      * @param firstDate  a string of date
      * @param secondDate a string of date
      * @return a response result of a list of objects of class property repair order
@@ -171,9 +171,8 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         // Getting the list of property repair orders from query.
         List<PropertyRepairOrder> propertyRepairOrderList;
         try {
-            propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
-        }
-        catch (Exception e) {
+            propertyRepairOrderList = propertyRepairOrderRepository.getDataBetween(firstDate, secondDate);
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -193,6 +192,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get an integer of property repair order id and search it from service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @return a response result of an object of PropertyRepairOrder
      */
@@ -204,10 +204,9 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         // Check if PropertyRepairOrder exists.
         Optional<PropertyRepairOrder> propertyRepairOrderOpt;
-        try{
+        try {
             propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -227,6 +226,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get an integer of property repair order id, get an object of PropertyRepairOrder and update the property repair order into the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @param propertyRepairOrder   an object ofPropertyRepairOrder
      * @return a response result of an object of PropertyRepairOrder
@@ -238,7 +238,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         log.info(LINE_DELIMITER);
 
         // Check if body of property repair order is null.
-        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null &&
+        if (propertyRepairOrder.getDateOfRegistrationOrder() == null &&
                 propertyRepairOrder.getDateOfScheduledRepair() == null &&
                 propertyRepairOrder.getRepairStatus() == null &&
                 propertyRepairOrder.getRepairType() == null &&
@@ -254,8 +254,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         Optional<PropertyRepairOrder> propertyRepairOrderOpt;
         try {
             propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -272,8 +271,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             if (propertyRepairOrder.getDateOfScheduledRepair() != null)
                 propertyRepairOrderOpt.get().setDateOfScheduledRepair(propertyRepairOrder.getDateOfScheduledRepair());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Date of scheduled repair is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Date of scheduled repair is incorrect.");
@@ -282,8 +280,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             if (propertyRepairOrder.getRepairStatus() != null)
                 propertyRepairOrderOpt.get().setRepairStatus(propertyRepairOrder.getRepairStatus());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Repair status is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Repair status is incorrect.");
@@ -292,8 +289,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             if (propertyRepairOrder.getRepairType() != null)
                 propertyRepairOrderOpt.get().setRepairType(propertyRepairOrder.getRepairType());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Repair type is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Repair type is incorrect.");
@@ -302,8 +298,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             if (propertyRepairOrder.getCostOfRepair() != null)
                 propertyRepairOrderOpt.get().setCostOfRepair(propertyRepairOrder.getCostOfRepair());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Cost of repair is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Cost of repair is incorrect.");
@@ -312,8 +307,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             if (propertyRepairOrder.getDescription() != null)
                 propertyRepairOrderOpt.get().setDescription(propertyRepairOrder.getDescription());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Description is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Description is incorrect.");
@@ -322,8 +316,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         // Saving the property repair order to the repository and check for errors.
         try {
             propertyRepairOrderRepository.save(propertyRepairOrderOpt.get());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -337,6 +330,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     /**
      * Get an integer of property repair order id, get an object of PropertyRepairOrder, get an integer of property id
      * and update the property repair order into the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @param propertyId            an integer for property id
      * @param propertyRepairOrder   an object ofPropertyRepairOrder
@@ -349,7 +343,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         log.info(LINE_DELIMITER);
 
         // Check if body of property repair order is null.
-        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null &&
+        if (propertyRepairOrder.getDateOfRegistrationOrder() == null &&
                 propertyRepairOrder.getDateOfScheduledRepair() == null &&
                 propertyRepairOrder.getRepairStatus() == null &&
                 propertyRepairOrder.getRepairType() == null &&
@@ -365,8 +359,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         Optional<Property> propertyOpt;
         try {
             propertyOpt = propertyRepository.findById(propertyId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -386,8 +379,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             propertyRepairOrderUpt.setProperty(propertyOpt.get());
             propertyRepairOrderRepository.save(propertyRepairOrderUpt);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -400,6 +392,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     /**
      * Get an integer of property repair order id and delete the property repair order from the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @return a response result of an object of Boolean
      */
@@ -413,8 +406,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         Optional<PropertyRepairOrder> propertyRepairOrderDb;
         try {
             propertyRepairOrderDb = propertyRepairOrderRepository.findById(propertyRepairOrderId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
@@ -430,8 +422,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         // Then delete it.
         try {
             propertyRepairOrderRepository.delete(propertyRepairOrderDb.get());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
