@@ -66,8 +66,9 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * @param propertyId
-     * @return
+     * Searching property by property ID, checking the fields for null.
+     * @param propertyId property ID
+     * @return a response result with appropriate message.
      */
     @Override
     public ResponseResultDto<Property> searchPropertyByPropertyId(int propertyId) {
@@ -75,6 +76,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Searching a property by propertyId...");
         log.info(LINE_DELIMITER);
 
+        // Search property by ID
         Property property = null;
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -86,6 +88,8 @@ public class PropertyServiceImpl implements PropertyService {
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
+
+        // Check if property exists and if so it is returned
         if (property == null) {
             log.error("Property was not found.");
             log.info(LINE_DELIMITER);
