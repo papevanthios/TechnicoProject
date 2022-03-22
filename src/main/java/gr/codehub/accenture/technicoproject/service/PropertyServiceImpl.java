@@ -24,7 +24,8 @@ public class PropertyServiceImpl implements PropertyService {
     private static final String LINE_DELIMITER = "---------------------------------------";
 
     /**
-     * Creating property, checking the fields for null and then saving it to the repository.
+     * Creating property, checking the fields for null and
+     * then saving it to the repository.
      * @param property property information.
      * @param propertyOwnerId property owner ID.
      * @return a response result with appropriate message.
@@ -66,7 +67,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * Searching property by property ID.
+     * Searching property by property ID (if exists).
      * @param propertyId property ID.
      * @return a response result with appropriate message.
      */
@@ -101,7 +102,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * Searching property by property identification number.
+     * Searching property by property identification number (if exists).
      * @param propertyIdNumber property identification number.
      * @return a response result with appropriate message.
      */
@@ -136,7 +137,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * Searching property by property owner's VAT number.
+     * Searching properties by property owner's VAT number (if exist).
      * @param propertyOwnerVAT property owner's VAT number.
      * @return a response result with appropriate message.
      */
@@ -171,7 +172,9 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * Updating property fields (except for property owner).
+     * Updating property fields (except for property owner),
+     * by checking every possible field for user input,
+     * and then saving it to the repository.
      * @param propertyId property ID.
      * @param property property information.
      * @return a response result with appropriate message.
@@ -263,7 +266,9 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     /**
-     * Updating property fields and property owner.
+     * Updating property fields (including property owner),
+     * by checking every possible field for user input,
+     * and then saving it to the repository.
      * @param propertyId property ID.
      * @param propertyOwnerId property owner ID.
      * @param property property information.
@@ -313,12 +318,18 @@ public class PropertyServiceImpl implements PropertyService {
         return new ResponseResultDto<>(propertyUpd, ResponseStatus.SUCCESS, "Property was updated.");
     }
 
+    /**
+     * Deleting property if there is not any repair.
+     * @param propertyIdNumber property identification number.
+     * @return a response result with appropriate message.
+     */
     @Override
     public ResponseResultDto<Boolean> deleteProperty(int propertyIdNumber) {
         log.info("");
         log.info("Deleting a property...");
         log.info(LINE_DELIMITER);
 
+        // Check if property with propertyIdNumber exists.
         Optional<Property> propertyOpt;
         try {
             propertyOpt = propertyRepository.findById(propertyIdNumber);
@@ -334,6 +345,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
 
+        // Check if the property has any repair and if not, delete the property.
         if (propertyOpt.get().getPropertyRepairOrderList().isEmpty()) {
             try {
                 propertyRepository.delete(propertyOpt.get());
@@ -343,9 +355,12 @@ public class PropertyServiceImpl implements PropertyService {
                 log.info(LINE_DELIMITER);
                 return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
             }
+            log.info("Property was deleted.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Property was deleted.");
         }
-        log.info("Property was deleted.");
+        log.info("Property has repairs.");
         log.info(LINE_DELIMITER);
-        return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "Property was deleted.");
+        return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_CANNOT_BE_DELETED, "Property has repairs.");
     }
 }
