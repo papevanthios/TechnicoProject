@@ -35,7 +35,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Creating a property...");
         log.info(LINE_DELIMITER);
 
-        // Search property owner by ID
+        // Search property owner by ID.
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty()) {
             log.error("The property owner was not found.");
@@ -43,31 +43,31 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
 
-        // Check if the property owner has properties
+        // Check if the property owner has properties.
         if (property == null) {
             log.error("The property owner has no properties.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property owner has no properties.");
         }
 
-        // Set property owner to the property and save it
+        // Set property owner to the property, save it and return it.
         property.setPropertyOwner(propertyOwnerOpt.get());
         try {
             propertyRepository.save(property);
         }
         catch (Exception e) {
-            log.error("An error occurred during saving in DB.");
+            log.error("An error occurred during saving into DB.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
-        log.info("Property was created and saved in DB.");
+        log.info("Property was created and saved into DB.");
         log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was created.");
     }
 
     /**
      * Searching property by property ID.
-     * @param propertyId property ID
+     * @param propertyId property ID.
      * @return a response result with appropriate message.
      */
     @Override
@@ -76,7 +76,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Searching a property by propertyId...");
         log.info(LINE_DELIMITER);
 
-        // Search property by ID
+        // Search property by ID.
         Property property = null;
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -89,7 +89,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
-        // Check if property exists and if so it is returned
+        // Check if property exists and if so it is returned.
         if (property == null) {
             log.error("Property was not found.");
             log.info(LINE_DELIMITER);
@@ -102,7 +102,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     /**
      * Searching property by property identification number.
-     * @param propertyIdNumber property identification number
+     * @param propertyIdNumber property identification number.
      * @return a response result with appropriate message.
      */
     @Override
@@ -111,7 +111,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Searching a property by propertyIdNumber...");
         log.info(LINE_DELIMITER);
 
-        // Search property by property identification number
+        // Search property by property identification number.
         Property property = null;
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -124,7 +124,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
-        // Check if property exists and if so it is returned
+        // Check if property exists and if so it is returned.
         if (property == null) {
             log.error("Property was not found.");
             log.info(LINE_DELIMITER);
@@ -137,7 +137,7 @@ public class PropertyServiceImpl implements PropertyService {
 
     /**
      * Searching property by property owner's VAT number.
-     * @param propertyOwnerVAT property owner's VAT number
+     * @param propertyOwnerVAT property owner's VAT number.
      * @return a response result with appropriate message.
      */
     @Override
@@ -146,7 +146,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Searching a property by property owner's VAT...");
         log.info(LINE_DELIMITER);
 
-        // Search property by property owner's VAT number
+        // Search property by property owner's VAT number.
         List<Property> propertyList = new ArrayList<>();
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -159,7 +159,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
-        // Check if property exists and if so it is returned
+        // Check if property exists and if so it is returned.
         if (propertyList.isEmpty()) {
             log.error("Property was not found.");
             log.info(LINE_DELIMITER);
@@ -170,13 +170,19 @@ public class PropertyServiceImpl implements PropertyService {
         return new ResponseResultDto<>(propertyList, ResponseStatus.SUCCESS, "Properties were found.");
     }
 
+    /**
+     * Updating property fields (except for property owner).
+     * @param propertyId property ID.
+     * @param property property information.
+     * @return a response result with appropriate message.
+     */
     @Override
     public ResponseResultDto<Property> updatePropertyFields(int propertyId, Property property) {
         log.info("");
         log.info("Updating property fields...");
         log.info(LINE_DELIMITER);
 
-        // Check if property is null
+        // Check if property information is null.
         if (    property.getPropertyType() == null &&
                 property.getPropertyAddress() == null &&
                 property.getPropertyIdentificationNumber() == null &&
@@ -186,7 +192,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property.");
         }
 
-        // Check if Property with propertyId exists.
+        // Check if property with propertyId exists.
         Optional<Property> propertyOpt;
         try {
             propertyOpt = propertyRepository.findById(propertyId);
@@ -242,15 +248,16 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property year of construction is incorrect.");
         }
 
+        // Save property into DB and return it.
         try {
             propertyRepository.save(propertyOpt.get());
         }
         catch (Exception e) {
-            log.error("An error occurred during saving in DB.");
+            log.error("An error occurred during saving into DB.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
-        log.info("Property was updated and saved in DB.");
+        log.info("Property was updated and saved into DB.");
         log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyOpt.get(), ResponseStatus.SUCCESS, "Property was updated.");
     }
@@ -289,11 +296,11 @@ public class PropertyServiceImpl implements PropertyService {
             propertyRepository.save(propertyUpd);
         }
         catch (Exception e) {
-            log.error("An error occurred during saving in DB.");
+            log.error("An error occurred during saving into DB.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
-        log.info("Property was updated and saved in DB.");
+        log.info("Property was updated and saved into DB.");
         log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyUpd, ResponseStatus.SUCCESS, "Property was updated.");
     }
