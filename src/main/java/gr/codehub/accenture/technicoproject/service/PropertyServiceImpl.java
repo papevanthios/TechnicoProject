@@ -111,7 +111,7 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Searching a property by propertyIdNumber...");
         log.info(LINE_DELIMITER);
 
-        // Search property by identification number
+        // Search property by property identification number
         Property property = null;
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -135,12 +135,18 @@ public class PropertyServiceImpl implements PropertyService {
         return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was found.");
     }
 
+    /**
+     * Searching property by property owner's VAT number.
+     * @param propertyOwnerVAT property owner's VAT number
+     * @return a response result with appropriate message.
+     */
     @Override
     public ResponseResultDto<List<Property>> searchPropertyByVAT(int propertyOwnerVAT) {
         log.info("");
         log.info("Searching a property by property owner's VAT...");
         log.info(LINE_DELIMITER);
 
+        // Search property by property owner's VAT number
         List<Property> propertyList = new ArrayList<>();
         try {
             for (Property propertyRep : propertyRepository.findAll())
@@ -152,6 +158,8 @@ public class PropertyServiceImpl implements PropertyService {
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
+
+        // Check if property exists and if so it is returned
         if (propertyList.isEmpty()) {
             log.error("Property was not found.");
             log.info(LINE_DELIMITER);
