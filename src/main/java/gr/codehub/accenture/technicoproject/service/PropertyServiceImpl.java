@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of property service methods
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
