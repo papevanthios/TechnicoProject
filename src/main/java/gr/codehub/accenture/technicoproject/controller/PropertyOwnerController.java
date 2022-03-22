@@ -6,6 +6,8 @@ import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/propertyOwner")
@@ -13,7 +15,7 @@ public class PropertyOwnerController {
     private PropertyOwnerService propertyOwnerService;
 
     @PostMapping(value = "")
-    public ResponseResultDto<PropertyOwner> createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
+    public ResponseResultDto<PropertyOwner> createPropertyOwner(@Valid @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 

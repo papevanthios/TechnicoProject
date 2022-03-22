@@ -6,6 +6,7 @@ import gr.codehub.accenture.technicoproject.service.PropertyService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,7 @@ public class PropertyController {
     private PropertyService propertyService;
 
     @PostMapping("/propertyOwner/{propertyOwnerId}")
-    public ResponseResultDto<Property> createProperty(@RequestBody Property property,
+    public ResponseResultDto<Property> createProperty(@Valid @RequestBody Property property,
                                                      @PathVariable ("propertyOwnerId") int propertyOwnerId) {
         return propertyService.createProperty(property, propertyOwnerId);
     }

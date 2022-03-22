@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GeneralController {
     @GetMapping(value = "")
     public String home() {
-        return "Welcome to the Team ....";
+        return "Welcome to the Team 2";
     }
 }

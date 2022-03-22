@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class PropertyRepairOrderController {
 
     @PostMapping (value = "/property/{propertyId}")
     public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
-                                                                @RequestBody PropertyRepairOrder propertyRepairOrder){
+                                                                            @Valid @RequestBody PropertyRepairOrder propertyRepairOrder){
         return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
     }
 
