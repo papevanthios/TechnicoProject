@@ -25,19 +25,12 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Creating a property owner...");
         log.info(LINE_DELIMITER);
 
-        if (    propertyOwner == null ||
-                propertyOwner.getVatNumber() == null) {
-            log.info("Null property owner or VAT number.");
-            log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_CREATED, "The property owner was not created.");
-        }
-
         try {
             propertyOwnerRepository.save(propertyOwner);
         }
         catch(Exception e) {
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         log.info("Property owner successfully created.");
