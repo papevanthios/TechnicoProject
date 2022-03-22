@@ -178,6 +178,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("");
         log.info("Updating property owner's details...");
         log.info(LINE_DELIMITER);
+
         // check if all details of the owner are null, if yes throw an error
         if (    propertyOwner.getVatNumber() == null &&
                 propertyOwner.getPhoneNumber() == null &&
@@ -192,6 +193,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property owner.");
         }
+
         // If property owner is not null proceed
         Optional<PropertyOwner> propertyOwnerOpt;
 
@@ -203,6 +205,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
+
         // in case there is no owner found from the primary key, throw a message
         if (propertyOwnerOpt.isEmpty()) {
             log.error("Property owner was not found.");
@@ -218,7 +221,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("VAT number is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The VAT number is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The VAT number is incorrect.");
         }
 
         try {
@@ -228,7 +231,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("First name is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The first name is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The first name is incorrect.");
         }
 
         try {
@@ -238,17 +241,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Last name is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The last name is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The last name is incorrect.");
         }
 
         try {
             if (propertyOwner.getAddress() != null)// address
                 propertyOwnerOpt.get().setAddress(propertyOwner.getAddress());
         }
+
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Address is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The address is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The address is incorrect.");
         }
 
         try {
@@ -258,7 +262,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Phone number is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The phone number is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The phone number is incorrect.");
         }
 
         try {
@@ -268,7 +272,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Email is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The email is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
         }
 
         try {
@@ -278,17 +282,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Username is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The username is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The username is incorrect.");
         }
 
         try {
             if (propertyOwner.getPassword() != null)// password
                 propertyOwnerOpt.get().setPassword(propertyOwner.getPassword());
         }
+
         catch (Exception e) {// if value cannot be set throw an error message
             log.error("Password is incorrect.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The password is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The password is incorrect.");
         }
 
         try {
