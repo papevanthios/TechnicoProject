@@ -15,6 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class responsible for managing property repair order services.
+ * Property repair order service implementation, implements the services for the property repair orders and in extend
+ * these services will be used in the property repair order controller.
+ *
+ * Services:
+ *      Create property repair order.
+ *      Search property repair orders with property owner id.
+ *      Search property repair orders by date.
+ *      Search property repair orders by range of dates.
+ *      Search property repair order by property repair order id.
+ *      Update property repair order fields.
+ *      Update property repair order fields and property.
+ *      Delete property repair order.
+ */
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -24,6 +39,12 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
     private static final String LINE_DELIMITER = "---------------------------------------";
 
+    /**
+     * Get an object of class PropertyRepairOrder from controller, an integer for the property id and creating
+     * @param propertyRepairOrder an object of class PropertyRepairOrder
+     * @param propertyId          an integer for property id
+     * @return a response result object of propertyRepairOrder object of class ResponseResultDto
+     */
     @Override
     public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
         log.info("");
@@ -62,6 +83,11 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         }
     }
 
+    /**
+     * Get an integer of property owner id and search it from the service's repository.
+     * @param propertyOwnerId an integer of property owner id
+     * @return a response result of a list of objects of class property repair order
+     */
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId){
         log.info("");
@@ -95,6 +121,11 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "The property repair orders were found.");
     }
 
+    /**
+     * Get a string of date and search it from service's repository.
+     * @param firstDate a string of date
+     * @return a response result of a list of objects of class property repair order
+     */
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate){
         log.info("");
@@ -125,6 +156,12 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
+    /**
+     * Get two strings of dates and makes a search for property repair orders into service's repository.
+     * @param firstDate  a string of date
+     * @param secondDate a string of date
+     * @return a response result of a list of objects of class property repair order
+     */
     @Override
     public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate){
         log.info("");
@@ -154,6 +191,11 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderList, ResponseStatus.SUCCESS, "Property repair orders were found.");
     }
 
+    /**
+     * Get an integer of property repair order id and search it from service's repository.
+     * @param propertyRepairOrderId an integer of property repair order id
+     * @return a response result of an object of PropertyRepairOrder
+     */
     @Override
     public ResponseResultDto<PropertyRepairOrder> searchByPropertyRepairOrderId(int propertyRepairOrderId) {
         log.info("");
@@ -183,6 +225,12 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderOpt.get(), ResponseStatus.SUCCESS, "Property repair order was found.");
     }
 
+    /**
+     * Get an integer of property repair order id, get an object of PropertyRepairOrder and update the property repair order into the service's repository.
+     * @param propertyRepairOrderId an integer of property repair order id
+     * @param propertyRepairOrder   an object ofPropertyRepairOrder
+     * @return a response result of an object of PropertyRepairOrder
+     */
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder){
         log.info("");
@@ -282,6 +330,14 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderOpt.get(), ResponseStatus.SUCCESS, "Property repair order was updated.");
     }
 
+    /**
+     * Get an integer of property repair order id, get an object of PropertyRepairOrder, get an integer of property id
+     * and update the property repair order into the service's repository.
+     * @param propertyRepairOrderId an integer of property repair order id
+     * @param propertyId            an integer for property id
+     * @param propertyRepairOrder   an object ofPropertyRepairOrder
+     * @return a response result of an object of PropertyRepairOrder
+     */
     @Override
     public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder){
         log.info("");
@@ -334,6 +390,11 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         return new ResponseResultDto<>(propertyRepairOrderUpt, ResponseStatus.SUCCESS, "Property repair order was updated.");
     }
 
+    /**
+     * Get an integer of property repair order id and delete the property repair order from the service's repository.
+     * @param propertyRepairOrderId an integer of property repair order id
+     * @return a response result of an object of Boolean
+     */
     @Override
     public ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId){
         log.info("");
