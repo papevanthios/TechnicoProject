@@ -20,6 +20,11 @@ public class PropertyController {
         return propertyService.createProperty(property, propertyOwnerId);
     }
 
+    @GetMapping("/propertyId/{propertyId}")
+    public ResponseResultDto<Property> searchPropertyByPropertyId(@PathVariable("propertyId") int propertyId) {
+        return propertyService.searchPropertyByPropertyId(propertyId);
+    }
+
     @GetMapping("/propertyIdNumber/{propertyIdNumber}")
     public ResponseResultDto<Property> searchPropertyByPropertyIdNumber(@PathVariable("propertyIdNumber") long propertyIdNumber) {
         return propertyService.searchPropertyByPropertyIdNumber(propertyIdNumber);

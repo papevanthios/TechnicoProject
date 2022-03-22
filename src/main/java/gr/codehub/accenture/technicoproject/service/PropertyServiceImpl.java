@@ -37,6 +37,22 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    public ResponseResultDto<Property> searchPropertyByPropertyId(int propertyId) {
+        Property property = null;
+        try {
+            for (Property propertyRep : propertyRepository.findAll())
+                if (propertyRep.getPropertyId() == propertyId)
+                    property = propertyRep;
+        }
+        catch (Exception e) {
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
+        }
+        if (property == null)
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
+        return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was found.");
+    }
+
+    @Override
     public ResponseResultDto<Property> searchPropertyByPropertyIdNumber(long propertyIdNumber) {
         Property property = null;
         try {

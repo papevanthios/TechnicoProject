@@ -9,6 +9,8 @@ public interface PropertyService {
 
     ResponseResultDto<Property> createProperty(Property property, int propertyOwnerId);
 
+    ResponseResultDto<Property> searchPropertyByPropertyId(int propertyId);
+
     ResponseResultDto<Property> searchPropertyByPropertyIdNumber(long propertyIdNumber);
 
     ResponseResultDto<List<Property>> searchPropertyByVAT(int propertyOwnerVAT);
