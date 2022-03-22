@@ -18,14 +18,14 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService{
+public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderService {
     private PropertyRepairOrderRepository propertyRepairOrderRepository;
     private PropertyRepository propertyRepository;
 
     private static final String LINE_DELIMITER = "---------------------------------------";
 
     @Override
-    public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId){
+    public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(PropertyRepairOrder propertyRepairOrder, int propertyId) {
         log.info("");
         log.info("Creating a new Property Repair Order...");
         log.info(LINE_DELIMITER);
@@ -63,7 +63,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId){
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByPropertyOwnerIdForPropertyRepairOrder(int propertyOwnerId) {
         log.info("");
         log.info("Searching Property Repair Order...");
         log.info(LINE_DELIMITER);
@@ -81,7 +81,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
             log.info("Exception enabled.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
-            }
+        }
 
         // If there are no property owner we throw a response result.
         if (propertyRepairOrderList.isEmpty()) {
@@ -96,7 +96,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate){
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByDate(String firstDate) {
         log.info("");
         log.info("Searching Property Repair Order...");
         log.info(LINE_DELIMITER);
@@ -107,7 +107,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         try {
             propertyRepairOrderList = propertyRepairOrderRepository.getData_between(firstDate, secondDate);
         }
-        catch (Exception e){
+        catch (Exception e) {
             log.info("Exception enabled.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -126,7 +126,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate){
+    public ResponseResultDto<List<PropertyRepairOrder>> searchByRangeOfDates(String firstDate, String secondDate) {
         log.info("");
         log.info("Searching Property Repair Order...");
         log.info(LINE_DELIMITER);
@@ -184,15 +184,19 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder){
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFields(int propertyRepairOrderId, PropertyRepairOrder propertyRepairOrder) {
         log.info("");
         log.info("Updating Property Repair Order...");
         log.info(LINE_DELIMITER);
 
         // Check if body of property repair order is null.
-        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null && propertyRepairOrder.getDateOfScheduledRepair() == null &&
-                propertyRepairOrder.getRepairStatus() == null && propertyRepairOrder.getRepairType() == null && propertyRepairOrder.getCostOfRepair() == null &&
-                propertyRepairOrder.getProperty() == null && propertyRepairOrder.getDescription() == null) {
+        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null &&
+                propertyRepairOrder.getDateOfScheduledRepair() == null &&
+                propertyRepairOrder.getRepairStatus() == null &&
+                propertyRepairOrder.getRepairType() == null &&
+                propertyRepairOrder.getCostOfRepair() == null &&
+                propertyRepairOrder.getProperty() == null &&
+                propertyRepairOrder.getDescription() == null) {
             log.info("You entered a null property repair order.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
@@ -200,7 +204,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
 
         // Check if PropertyRepairOrder exists.
         Optional<PropertyRepairOrder> propertyRepairOrderOpt;
-        try{
+        try {
             propertyRepairOrderOpt = propertyRepairOrderRepository.findById(propertyRepairOrderId);
         }
         catch (Exception e) {
@@ -283,15 +287,19 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder){
+    public ResponseResultDto<PropertyRepairOrder> updatePropertyRepairOrderFieldsAndProperty(int propertyRepairOrderId, int propertyId, PropertyRepairOrder propertyRepairOrder) {
         log.info("");
         log.info("Updating Property Repair Order...");
         log.info(LINE_DELIMITER);
 
         // Check if body of property repair order is null.
-        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null && propertyRepairOrder.getDateOfScheduledRepair() == null &&
-                propertyRepairOrder.getRepairStatus() == null && propertyRepairOrder.getRepairType() == null && propertyRepairOrder.getCostOfRepair() == null &&
-                propertyRepairOrder.getProperty() == null && propertyRepairOrder.getDescription() == null) {
+        if (    propertyRepairOrder.getDateOfRegistrationOrder() == null &&
+                propertyRepairOrder.getDateOfScheduledRepair() == null &&
+                propertyRepairOrder.getRepairStatus() == null &&
+                propertyRepairOrder.getRepairType() == null &&
+                propertyRepairOrder.getCostOfRepair() == null &&
+                propertyRepairOrder.getProperty() == null &&
+                propertyRepairOrder.getDescription() == null) {
             log.info("You entered a null property repair order.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property repair order.");
@@ -335,7 +343,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
     }
 
     @Override
-    public ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId){
+    public ResponseResultDto<Boolean> deletePropertyRepairOrder(int propertyRepairOrderId) {
         log.info("");
         log.info("Deleting Property Repair Order...");
         log.info(LINE_DELIMITER);

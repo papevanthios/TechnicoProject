@@ -16,7 +16,7 @@ public class PropertyController {
 
     @PostMapping("/propertyOwner/{propertyOwnerId}")
     public ResponseResultDto<Property> createProperty(@RequestBody Property property,
-                                                     @PathVariable ("propertyOwnerId") int propertyOwnerId) {
+                                                      @PathVariable ("propertyOwnerId") int propertyOwnerId) {
         return propertyService.createProperty(property, propertyOwnerId);
     }
 
@@ -37,14 +37,14 @@ public class PropertyController {
 
     @PutMapping("/{propertyId}")
     public ResponseResultDto<Property> updatePropertyFields(@PathVariable("propertyId") int propertyId,
-                                         @RequestBody Property property) {
+                                                            @RequestBody Property property) {
         return propertyService.updatePropertyFields(propertyId, property);
     }
 
     @PutMapping("/{propertyId}/propertyOwner/{propertyOwnerId}")
     public ResponseResultDto<Property> updatePropertyFieldsAndPropertyOwner(@PathVariable("propertyId") int propertyId,
-                                                         @PathVariable("propertyOwnerId") int propertyOwnerId,
-                                                         @RequestBody Property property) {
+                                                                            @PathVariable("propertyOwnerId") int propertyOwnerId,
+                                                                            @RequestBody Property property) {
         return propertyService.updatePropertyFieldsAndPropertyOwner(propertyId, propertyOwnerId, property);
     }
 

@@ -131,6 +131,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("");
         log.info("Updating property owner's details...");
         log.info(LINE_DELIMITER);
+
         // Check if property owner is null
         if (    propertyOwner.getVatNumber() == null &&
                 propertyOwner.getPhoneNumber() == null &&
@@ -145,6 +146,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property owner.");
         }
+
         // If property owner is not null proceed
         Optional<PropertyOwner> propertyOwnerOpt;
 
@@ -156,6 +158,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
+
         // Check if property owner is empty
         if (propertyOwnerOpt.isEmpty()) {
             log.info("Property owner was not found.");

@@ -34,7 +34,7 @@ public class PropertyOwnerController {
 
     @PutMapping(value = "/{propertyOwnerId}")// to do
     public ResponseResultDto<PropertyOwner> updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
-                                             @RequestBody PropertyOwner propertyOwner) {
+                                                                @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
     }
 
