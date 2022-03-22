@@ -1,6 +1,6 @@
 package gr.codehub.accenture.technicoproject.controller;
 
-import gr.codehub.accenture.technicoproject.exception.PropertyOwnerException;
+import gr.codehub.accenture.technicoproject.dto.ResponseResultDto;
 import gr.codehub.accenture.technicoproject.model.PropertyOwner;
 import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
@@ -8,32 +8,38 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/propertyOwner")
 public class PropertyOwnerController {
     private PropertyOwnerService propertyOwnerService;
 
-    @PostMapping(value = "/propertyOwner")
-    public PropertyOwner createPropertyOwner(@RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
+    @PostMapping(value = "")
+    public ResponseResultDto<PropertyOwner> createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 
-    @GetMapping(value = "/propertyOwner/vatNumber/{propertyOwnerVAT}")
-    public PropertyOwner searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") String propertyOwnerVAT) throws PropertyOwnerException {
+    @GetMapping(value = "/vatNumber/{propertyOwnerVAT}")
+    public ResponseResultDto<PropertyOwner> searchPropertyOwnerByVAT(@PathVariable("propertyOwnerVAT") String propertyOwnerVAT) {
         return propertyOwnerService.searchByVAT(propertyOwnerVAT);
     }
 
-    @GetMapping(value = "/propertyOwner/email/{propertyOwnerEmail}")
-    public PropertyOwner searchPropertyOwnerByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) throws PropertyOwnerException {
+    @GetMapping(value = "/email/{propertyOwnerEmail}")
+    public ResponseResultDto<PropertyOwner> searchPropertyOwnerByEmail(@PathVariable("propertyOwnerEmail") String propertyOwnerEmail) {
         return propertyOwnerService.searchByEmail(propertyOwnerEmail);
     }
 
-    @PutMapping(value = "/propertyOwner/{propertyOwnerId}")
-    public PropertyOwner updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
-                                             @RequestBody PropertyOwner propertyOwner) throws PropertyOwnerException {
+    @GetMapping(value = "/{propertyOwnerId}")
+    public ResponseResultDto<PropertyOwner> searchPropertyOwnerById(@PathVariable("propertyOwnerId") int propertyOwnerId) {
+        return propertyOwnerService.searchByPropertyOwnerId(propertyOwnerId);
+    }
+
+    @PutMapping(value = "/{propertyOwnerId}")// to do
+    public ResponseResultDto<PropertyOwner> updatePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId,
+                                             @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.updatePropertyOwner(propertyOwnerId, propertyOwner);
     }
 
-    @DeleteMapping(value = "/propertyOwner/{propertyOwnerId}")
-    public boolean deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) throws PropertyOwnerException {
+    @DeleteMapping(value = "/{propertyOwnerId}")
+    public ResponseResultDto<Boolean> deletePropertyOwner(@PathVariable("propertyOwnerId") int propertyOwnerId) {
         return propertyOwnerService.deletePropertyOwner(propertyOwnerId);
     }
 }

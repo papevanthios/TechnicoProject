@@ -25,6 +25,7 @@ public class PropertyRepairOrder {
     @Column(nullable = false)
     private BigDecimal costOfRepair;
     @ManyToOne
+    @JoinColumn(name = "propertyId", referencedColumnName= "propertyId")
     private Property property;
     private String description;
 }
