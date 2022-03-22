@@ -30,7 +30,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
         catch(Exception e) {
             log.error("Exception enabled.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         log.info("Property owner successfully created.");
@@ -50,14 +50,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
                     propertyOwner = propertyOwnerRep;
         } catch(Exception e) {
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         if (propertyOwner == null) {
-            log.info("Property owner is null.");
-            log.info(LINE_DELIMITER);
+            log.error("Property owner is null.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
         log.info("Property owner was successfully found by VAT number.");
@@ -77,13 +77,13 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 if (Objects.equals(propertyOwnerRep.getEmail(), propertyOwnerEmail))
                     propertyOwner = propertyOwnerRep;
         } catch(Exception e) {
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (propertyOwner == null) {
-            log.info("Property owner is null.");
-            log.info(LINE_DELIMITER);
+            log.error("Property owner is null.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
         log.info("Property owner was successfully found by email.");
@@ -104,14 +104,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                     propertyOwner = propertyOwnerRep;
         }
         catch(Exception e) {
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         if (propertyOwner == null) {
-            log.info("Property owner was not found.");
-            log.info(LINE_DELIMITER);
+            log.error("Property owner was not found.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
          }
         log.info("Property owner was successfully found.");
@@ -134,8 +134,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwner.getFirstName() == null &&
                 propertyOwner.getLastName() == null)
         {
-            log.info("Null property owner.");
-            log.info(LINE_DELIMITER);
+            log.error("Null property owner.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property owner.");
         }
         // If property owner is not null proceed
@@ -145,14 +145,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         }
         catch (Exception e){
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         // Check if property owner is empty
         if (propertyOwnerOpt.isEmpty()) {
-            log.info("Property owner was not found.");
-            log.info(LINE_DELIMITER);
+            log.error("Property owner was not found.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
 
@@ -162,8 +162,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
         }
         catch (Exception e) {
-            log.info("VAT number is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("VAT number is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The VAT number is incorrect.");
         }
 
@@ -172,8 +172,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setFirstName(propertyOwner.getFirstName());
         }
         catch (Exception e) {
-            log.info("First name is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("First name is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The first name is incorrect.");
         }
 
@@ -182,8 +182,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setLastName(propertyOwner.getLastName());
         }
         catch (Exception e) {
-            log.info("Last name is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Last name is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The last name is incorrect.");
         }
 
@@ -192,8 +192,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setAddress(propertyOwner.getAddress());
         }
         catch (Exception e) {
-            log.info("Address is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Address is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The address is incorrect.");
         }
 
@@ -202,8 +202,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setPhoneNumber(propertyOwner.getPhoneNumber());
         }
         catch (Exception e) {
-            log.info("Phone number is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Phone number is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The phone number is incorrect.");
         }
 
@@ -212,8 +212,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setEmail(propertyOwner.getEmail());
         }
         catch (Exception e) {
-            log.info("Email is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Email is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The email is incorrect.");
         }
 
@@ -222,8 +222,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
         }
         catch (Exception e) {
-            log.info("Username is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Username is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The username is incorrect.");
         }
 
@@ -232,8 +232,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 propertyOwnerOpt.get().setPassword(propertyOwner.getPassword());
         }
         catch (Exception e) {
-            log.info("Password is incorrect.");
-            log.info(LINE_DELIMITER);
+            log.error("Password is incorrect.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The password is incorrect.");
         }
 
@@ -241,8 +241,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             propertyOwnerRepository.save(propertyOwnerOpt.get());
         }
         catch (Exception e) {
-            log.info("Exception enabled.");
-            log.info(LINE_DELIMITER);
+            log.error("Exception enabled.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(propertyOwnerOpt.get(), ResponseStatus.ERROR, "An error occurred.");
         }
         log.info("Details updated successfully.");
@@ -262,14 +262,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         }
         catch(Exception e) {
-            log.info("ERROR occured.");
-            log.info(LINE_DELIMITER);
+            log.error("ERROR occurred.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
         }
 
         if (propertyOwnerOpt.isEmpty()) {
-            log.info("Property owner not found.");
-            log.info(LINE_DELIMITER);
+            log.error("Property owner not found.");
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner cannot be found.");
         }
 
@@ -281,14 +281,14 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
                 return new ResponseResultDto<>(true, ResponseStatus.SUCCESS, "The property owner has been deleted.");
             }
             catch(Exception e){
-                log.info("Exception enabled.");
-                log.info(LINE_DELIMITER);
+                log.error("Exception enabled.");
+                log.error(LINE_DELIMITER);
                 return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
             }
 
         }
-        log.info("Property owner has properties.");
-        log.info(LINE_DELIMITER);
+        log.error("Property owner has properties.");
+        log.error(LINE_DELIMITER);
         return new ResponseResultDto<>(false, ResponseStatus.ERROR, "Property owner has properties.");
     }
 }
