@@ -23,23 +23,34 @@ public class PropertyServiceImpl implements PropertyService {
 
     private static final String LINE_DELIMITER = "---------------------------------------";
 
+    /**
+     * Creating property, checking the fields for null and then saving it to the repository.
+     * @param property property information.
+     * @param propertyOwnerId property owner ID.
+     * @return a response result with appropriate message.
+     */
     @Override
     public ResponseResultDto<Property> createProperty(Property property, int propertyOwnerId) {
         log.info("");
         log.info("Creating a property...");
         log.info(LINE_DELIMITER);
 
+        // Search property owner by ID
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty()) {
             log.error("The property owner was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
+
+        // Check if the property owner has properties
         if (property == null) {
             log.error("The property owner has no properties.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property owner has no properties.");
         }
+
+        // Set property owner to the property and save it
         property.setPropertyOwner(propertyOwnerOpt.get());
         try {
             propertyRepository.save(property);
@@ -54,6 +65,10 @@ public class PropertyServiceImpl implements PropertyService {
         return new ResponseResultDto<>(property, ResponseStatus.SUCCESS, "Property was created.");
     }
 
+    /**
+     * @param propertyId
+     * @return
+     */
     @Override
     public ResponseResultDto<Property> searchPropertyByPropertyId(int propertyId) {
         log.info("");
@@ -180,7 +195,8 @@ public class PropertyServiceImpl implements PropertyService {
         try {
             if (property.getPropertyAddress() != null)
                 propertyOpt.get().setPropertyAddress(property.getPropertyAddress());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("The property address is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property address is incorrect.");
@@ -189,7 +205,8 @@ public class PropertyServiceImpl implements PropertyService {
         try {
             if (property.getPropertyIdentificationNumber() != null)
                 propertyOpt.get().setPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("The property identification number is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property identification number is incorrect.");
@@ -198,7 +215,8 @@ public class PropertyServiceImpl implements PropertyService {
         try {
             if (property.getYearOfConstruction() != null)
                 propertyOpt.get().setYearOfConstruction(property.getYearOfConstruction());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("The property year of construction is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property year of construction is incorrect.");
