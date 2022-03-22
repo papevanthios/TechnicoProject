@@ -31,12 +31,12 @@ public class PropertyServiceImpl implements PropertyService {
 
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty()) {
-            log.info("The property owner was not found.");
+            log.error("The property owner was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
         }
         if (property == null) {
-            log.info("The property owner has no properties.");
+            log.error("The property owner has no properties.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property owner has no properties.");
         }
@@ -72,7 +72,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (property == null) {
-            log.info("Property was not found.");
+            log.error("Property was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
@@ -99,7 +99,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (property == null) {
-            log.info("Property was not found.");
+            log.error("Property was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
@@ -126,7 +126,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (propertyList.isEmpty()) {
-            log.info("Property was not found.");
+            log.error("Property was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
@@ -146,7 +146,7 @@ public class PropertyServiceImpl implements PropertyService {
                 property.getPropertyAddress() == null &&
                 property.getPropertyIdentificationNumber() == null &&
                 property.getYearOfConstruction() == null) {
-            log.info("You entered a null property.");
+            log.error("You entered a null property.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.NO_UPDATES_FOUND, "You entered a null property.");
         }
@@ -162,7 +162,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (propertyOpt.isEmpty()) {
-            log.info("Property was not found.");
+            log.error("Property was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
@@ -172,7 +172,7 @@ public class PropertyServiceImpl implements PropertyService {
             if (property.getPropertyType() != null)
                 propertyOpt.get().setPropertyType(property.getPropertyType());
         } catch (Exception e) {
-            log.info("The property type is incorrect.");
+            log.error("The property type is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property type is incorrect.");
         }
@@ -181,7 +181,7 @@ public class PropertyServiceImpl implements PropertyService {
             if (property.getPropertyAddress() != null)
                 propertyOpt.get().setPropertyAddress(property.getPropertyAddress());
         } catch (Exception e) {
-            log.info("The property address is incorrect.");
+            log.error("The property address is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property address is incorrect.");
         }
@@ -190,7 +190,7 @@ public class PropertyServiceImpl implements PropertyService {
             if (property.getPropertyIdentificationNumber() != null)
                 propertyOpt.get().setPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
         } catch (Exception e) {
-            log.info("The property identification number is incorrect.");
+            log.error("The property identification number is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property identification number is incorrect.");
         }
@@ -199,7 +199,7 @@ public class PropertyServiceImpl implements PropertyService {
             if (property.getYearOfConstruction() != null)
                 propertyOpt.get().setYearOfConstruction(property.getYearOfConstruction());
         } catch (Exception e) {
-            log.info("The property year of construction is incorrect.");
+            log.error("The property year of construction is incorrect.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property year of construction is incorrect.");
         }
@@ -234,7 +234,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
         if (propertyOwnerOpt.isEmpty()) {
-            log.info("Property owner was not found.");
+            log.error("Property owner was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "Property owner was not found.");
         }
@@ -276,7 +276,7 @@ public class PropertyServiceImpl implements PropertyService {
             return new ResponseResultDto<>(false, ResponseStatus.ERROR, "An error occurred.");
         }
         if (propertyOpt.isEmpty()) {
-            log.info("Property was not found.");
+            log.error("Property was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(false, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
         }
