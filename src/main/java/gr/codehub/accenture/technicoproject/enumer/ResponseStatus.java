@@ -1,5 +1,8 @@
 package gr.codehub.accenture.technicoproject.enumer;
 
+/**
+ * Represents different response status.
+ */
 public enum ResponseStatus {
     SUCCESS,
     PROPERTY_OWNER_NOT_FOUND,

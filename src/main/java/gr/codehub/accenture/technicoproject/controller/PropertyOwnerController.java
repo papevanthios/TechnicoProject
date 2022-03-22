@@ -6,6 +6,8 @@ import gr.codehub.accenture.technicoproject.service.PropertyOwnerService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * This is the controller for the owner's web page.
  * We are using REST-API where the FRONT-END is replaced by Postman or Swagger.
@@ -31,7 +33,7 @@ public class PropertyOwnerController {
      * @return  owner's data, status of request and a message
      */
     @PostMapping(value = "")
-    public ResponseResultDto<PropertyOwner> createPropertyOwner(@RequestBody PropertyOwner propertyOwner) {
+    public ResponseResultDto<PropertyOwner> createPropertyOwner(@Valid @RequestBody PropertyOwner propertyOwner) {
         return propertyOwnerService.createPropertyOwner(propertyOwner);
     }
 
