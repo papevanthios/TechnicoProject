@@ -215,7 +215,7 @@ public class PropertyServiceImpl implements PropertyService {
         } catch (Exception e) {
             log.error("The property type is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property type is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_IS_INCORRECT, "The property type is incorrect.");
         }
 
         try {
@@ -225,7 +225,7 @@ public class PropertyServiceImpl implements PropertyService {
         catch (Exception e) {
             log.error("The property address is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property address is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_IS_INCORRECT, "The property address is incorrect.");
         }
 
         try {
@@ -235,7 +235,7 @@ public class PropertyServiceImpl implements PropertyService {
         catch (Exception e) {
             log.error("The property identification number is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property identification number is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_IS_INCORRECT, "The property identification number is incorrect.");
         }
 
         try {
@@ -245,7 +245,7 @@ public class PropertyServiceImpl implements PropertyService {
         catch (Exception e) {
             log.error("The property year of construction is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_ARE_INCORRECT, "The property year of construction is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_INFORMATION_IS_INCORRECT, "The property year of construction is incorrect.");
         }
 
         // Save property into DB and return it.

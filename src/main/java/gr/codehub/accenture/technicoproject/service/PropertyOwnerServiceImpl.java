@@ -174,7 +174,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("VAT number is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The VAT number is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The VAT number is incorrect.");
         }
 
         try {
@@ -184,7 +184,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("First name is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The first name is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The first name is incorrect.");
         }
 
         try {
@@ -194,7 +194,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Last name is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The last name is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The last name is incorrect.");
         }
 
         try {
@@ -204,7 +204,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Address is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The address is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The address is incorrect.");
         }
 
         try {
@@ -214,7 +214,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Phone number is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The phone number is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The phone number is incorrect.");
         }
 
         try {
@@ -224,7 +224,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Email is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The email is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
         }
 
         try {
@@ -234,7 +234,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Username is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The username is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The username is incorrect.");
         }
 
         try {
@@ -244,7 +244,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         catch (Exception e) {
             log.info("Password is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_ARE_INCORRECT, "The password is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The password is incorrect.");
         }
 
         try {

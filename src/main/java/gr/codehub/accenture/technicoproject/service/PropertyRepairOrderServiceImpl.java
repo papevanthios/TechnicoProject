@@ -228,7 +228,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e) {
             log.info("Date of scheduled repair is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Date of scheduled repair is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Date of scheduled repair is incorrect.");
         }
 
         try {
@@ -238,7 +238,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e) {
             log.info("Repair status is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Repair status is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Repair status is incorrect.");
         }
 
         try {
@@ -248,7 +248,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e) {
             log.info("Repair type is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Repair type is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Repair type is incorrect.");
         }
 
         try {
@@ -258,7 +258,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e) {
             log.info("Cost of repair is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Cost of repair is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Cost of repair is incorrect.");
         }
 
         try {
@@ -268,7 +268,7 @@ public class PropertyRepairOrderServiceImpl implements PropertyRepairOrderServic
         catch (Exception e) {
             log.info("Description is incorrect.");
             log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_ARE_INCORRECT, "Description is incorrect.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_REPAIR_ORDER_INFORMATION_IS_INCORRECT, "Description is incorrect.");
         }
 
         // Saving the property repair order to the repository and check for errors.
