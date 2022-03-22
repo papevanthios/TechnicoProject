@@ -9,13 +9,15 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represent a property repair order object.
+ */
 @Data
 @Entity
 public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer caseId;
-
 
     @Column(nullable = false)
     private LocalDateTime dateOfRegistrationOrder;
