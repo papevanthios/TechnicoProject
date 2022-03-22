@@ -8,6 +8,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * Represent a property object.
+ */
 @Data
 @Entity
 public class Property {
@@ -16,7 +19,7 @@ public class Property {
     private Integer propertyId;
 
     @NotNull(message = "PropertyIdentificationNumber cannot be null")
-//    @Column(unique=true)
+    @Column(unique=true)
     private Long propertyIdentificationNumber;
 
     @NotNull(message = "PropertyAddress cannot be null")
