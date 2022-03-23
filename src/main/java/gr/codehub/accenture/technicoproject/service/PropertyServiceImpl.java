@@ -82,23 +82,21 @@ public class PropertyServiceImpl implements PropertyService {
         log.info(LINE_DELIMITER);
 
         // Search property by ID.
-        Property property = null;
+        Property property;
         try {
-            for (Property propertyRep : propertyRepository.findAll())
-                if (propertyRep.getPropertyId() == propertyId)
-                    property = propertyRep;
+            property = propertyRepository.findByPropertyIdEquals(propertyId);
         }
         catch (Exception e) {
             log.error("An error occurred during searching in DB.");
-            log.info(LINE_DELIMITER);
+            log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         // Check if property exists and if so it is returned.
         if (property == null) {
             log.error("Property was not found.");
-            log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found.");
+            log.error(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found with id:" + propertyId);
         }
         log.info("Property was found.");
         log.info(LINE_DELIMITER);

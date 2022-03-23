@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
 
+    Property findByPropertyIdEquals(int propertyId);
     Property findByPropertyIdentificationNumber(Long propertyIdentificationNumber);
 }
