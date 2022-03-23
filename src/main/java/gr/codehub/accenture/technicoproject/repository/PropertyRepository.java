@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Integer> {
+
+    Property findByPropertyIdentificationNumber(Long propertyIdentificationNumber);
 }

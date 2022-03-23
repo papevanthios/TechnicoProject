@@ -39,19 +39,20 @@ public class PropertyServiceImpl implements PropertyService {
         log.info("Creating a property...");
         log.info(LINE_DELIMITER);
 
+        Property propertyRep;
+        propertyRep = propertyRepository.findByPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
+        if (propertyRep != null){
+            log.error("Property was already created.");
+            log.error(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.ERROR, "Property was already created with identificationNumber:" + property.getPropertyIdentificationNumber());
+        }
+
         // Search property owner by ID.
         Optional<PropertyOwner> propertyOwnerOpt = propertyOwnerRepository.findById(propertyOwnerId);
         if (propertyOwnerOpt.isEmpty()) {
             log.error("The property owner was not found.");
             log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
-        }
-
-        // Check if the property owner has properties.
-        if (property == null) {
-            log.error("The property owner has no properties.");
-            log.info(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "The property owner has no properties.");
         }
 
         // Set property owner to the property, save it and return it.
