@@ -40,6 +40,28 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Creating a property owner...");
         log.info(LINE_DELIMITER);
 
+        PropertyOwner propertyOwnerRep;
+        propertyOwnerRep = propertyOwnerRepository.findByVatNumber(propertyOwner.getVatNumber());
+        if (propertyOwnerRep != null) {
+            log.info("Property owner was already created.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that vatNumber:" + propertyOwner.getVatNumber());
+        }
+
+        propertyOwnerRep = propertyOwnerRepository.findByPhoneNumber(propertyOwner.getPhoneNumber());
+        if (propertyOwnerRep != null) {
+            log.info("Property owner was already created.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that phoneNumber:" + propertyOwner.getPhoneNumber());
+        }
+
+        propertyOwnerRep = propertyOwnerRepository.findByEmail(propertyOwner.getEmail());
+        if (propertyOwnerRep != null) {
+            log.info("Property owner was already created.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that email:" + propertyOwner.getEmail());
+        }
+
         try {// save the owner in database
             propertyOwnerRepository.save(propertyOwner);
         }
