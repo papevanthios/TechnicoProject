@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
+@Table(name = "repair_order")
 public class PropertyRepairOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +40,7 @@ public class PropertyRepairOrder {
     private BigDecimal costOfRepair;
 
     @ManyToOne
-    @JoinColumn(name = "propertyId", referencedColumnName= "propertyId")
+    @JoinColumn(name = "propertyId", referencedColumnName = "propertyId")
     private Property property;
 
     private String description;

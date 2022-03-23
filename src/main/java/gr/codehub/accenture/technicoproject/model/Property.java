@@ -13,13 +13,14 @@ import java.util.List;
  */
 @Data
 @Entity
+@Table(name = "property")
 public class Property {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer propertyId;
 
     @NotNull(message = "PropertyIdentificationNumber cannot be null")
-    @Column(unique=true)
+    @Column(unique = true)
     private Long propertyIdentificationNumber;
 
     @NotNull(message = "PropertyAddress cannot be null")
@@ -35,7 +36,7 @@ public class Property {
     private PropertyType propertyType;
 
     @ManyToOne
-    @JoinColumn(name = "propertyOwnerId", referencedColumnName= "propertyOwnerId")
+    @JoinColumn(name = "propertyOwnerId", referencedColumnName = "propertyOwnerId")
     private PropertyOwner propertyOwner;
 
     @JsonIgnore
