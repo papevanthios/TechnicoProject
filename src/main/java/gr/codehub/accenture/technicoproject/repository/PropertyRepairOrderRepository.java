@@ -23,5 +23,5 @@ public interface PropertyRepairOrderRepository extends JpaRepository<PropertyRep
      * @return a list of objects of property repair order
      */
     @Query(nativeQuery = true, value="select * from repair_order pr where pr.date_of_registration_order between :startDate and :endDate")
-    List<PropertyRepairOrder> getData_between(@Param("startDate") String date, @Param("endDate") String date2);
+    List<PropertyRepairOrder> getDataBetween(@Param("startDate") String date, @Param("endDate") String date2);
 }

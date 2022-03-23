@@ -8,8 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class implements the interface for the Service of the property owner.
@@ -227,8 +228,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
         // Check every possible field for user input, and update it. If a field is inserted then set it.
         try {
-            if (propertyOwner.getVatNumber() != null)// vat number
-                propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
+            if (propertyOwner.getVatNumber() != null) {
+                String regex = "^\\d{9}$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getVatNumber());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
+                else {
+                    log.error("Vat number is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The vat number is incorrect.");
+                }
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("VAT number is incorrect.");
             log.error(LINE_DELIMITER);
@@ -263,8 +274,19 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         try {
-            if (propertyOwner.getPhoneNumber() != null)// phone number
-                propertyOwnerOpt.get().setPhoneNumber(propertyOwner.getPhoneNumber());
+            if (propertyOwner.getPhoneNumber() != null) {
+                String regex = "^\\d{10}$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getPhoneNumber());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setPhoneNumber(propertyOwner.getPhoneNumber());
+                else {
+                    log.error("Phone number is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The phone number is incorrect.");
+                }
+            }
+
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Phone number is incorrect.");
             log.error(LINE_DELIMITER);
@@ -272,8 +294,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         try {
-            if (propertyOwner.getEmail() != null)// email
-                propertyOwnerOpt.get().setEmail(propertyOwner.getEmail());
+            if (propertyOwner.getEmail() != null) {
+                String regex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getEmail());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setEmail(propertyOwner.getEmail());
+                else {
+                    log.error("Email is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
+                }
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Email is incorrect.");
             log.error(LINE_DELIMITER);
