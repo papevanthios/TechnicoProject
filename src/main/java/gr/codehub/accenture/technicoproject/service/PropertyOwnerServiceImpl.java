@@ -151,11 +151,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by his/her id...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding id number
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getPropertyOwnerId(), propertyOwnerId))
-                    propertyOwner = propertyOwnerRep;
+            propertyOwner = propertyOwnerRepository.findByPropertyOwnerIdEquals(propertyOwnerId);
         }
         catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
@@ -166,7 +164,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if no such owner exists throw an error
             log.error("Property owner was not found.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with id:" + propertyOwnerId);
          }
         log.info("Property owner was successfully found.");
         log.info(LINE_DELIMITER);
