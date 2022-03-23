@@ -41,7 +41,7 @@ public class PropertyServiceImpl implements PropertyService {
 
         Property propertyRep;
         propertyRep = propertyRepository.findByPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
-        if (propertyRep != null){
+        if (propertyRep != null) {
             log.error("Property was already created.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "Property was already created with identificationNumber:" + property.getPropertyIdentificationNumber());
@@ -85,8 +85,7 @@ public class PropertyServiceImpl implements PropertyService {
         Property property;
         try {
             property = propertyRepository.findByPropertyIdEquals(propertyId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("An error occurred during searching in DB.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -119,8 +118,7 @@ public class PropertyServiceImpl implements PropertyService {
         Property property;
         try {
             property = propertyRepository.findByPropertyIdentificationNumber(propertyIdNumber);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("An error occurred during searching in DB.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");

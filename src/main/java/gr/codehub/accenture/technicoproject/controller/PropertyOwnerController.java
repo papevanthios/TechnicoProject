@@ -28,8 +28,9 @@ public class PropertyOwnerController {
 
     /**
      * Creating an owner with a POST mapping.
+     *
      * @param propertyOwner owner's data from JSON object
-     * @return  owner's data, status of request and a message
+     * @return owner's data, status of request and a message
      */
     @PostMapping(value = "")
     public ResponseResultDto<PropertyOwner> createPropertyOwner(@Valid @RequestBody PropertyOwner propertyOwner) {
@@ -38,6 +39,7 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his VAT number with a GET mapping.
+     *
      * @param propertyOwnerVAT owner's VAT number, 9-digits number
      * @return owner's data, status of request and a message
      */
@@ -48,6 +50,7 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his email with a GET mapping.
+     *
      * @param propertyOwnerEmail owner's email, []@[].[]
      * @return owner's data, status of request and a message
      */
@@ -58,6 +61,7 @@ public class PropertyOwnerController {
 
     /**
      * Obtains an owner by his id primary key with a GET mapping.
+     *
      * @param propertyOwnerId owner's id primary key, from 1 to ...
      * @return owner's data, status of request and a message
      */
@@ -68,8 +72,9 @@ public class PropertyOwnerController {
 
     /**
      * Updates owner's details by his id primary key with a PUT mapping.
+     *
      * @param propertyOwnerId owner's id primary key, from 1 to ...
-     * @param propertyOwner owner's details to be updated, can be one or more
+     * @param propertyOwner   owner's details to be updated, can be one or more
      * @return owner's data, status of request and a message
      */
     @PutMapping(value = "/{propertyOwnerId}")
@@ -80,6 +85,7 @@ public class PropertyOwnerController {
 
     /**
      * Deletes the owner by his id primary key with a DELETE mapping.
+     *
      * @param propertyOwnerId owner's id primary key, from 1 to ...
      * @return boolean, true if deletion is successful, otherwise returns false
      */

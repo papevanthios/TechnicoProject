@@ -23,19 +23,21 @@ public class PropertyRepairOrderController {
     /**
      * Get an object of class PropertyRepairOrder from controller, an integer for the property id and creating
      * the object of PropertyRepairOrder into the service's repository.
+     *
      * @param propertyRepairOrder an object of class PropertyRepairOrder
-     * @param propertyId an integer for property id
+     * @param propertyId          an integer for property id
      * @return a response result object of propertyRepairOrder object of class ResponseResultDto
      */
-    @PostMapping (value = "/property/{propertyId}")
+    @PostMapping(value = "/property/{propertyId}")
     public ResponseResultDto<PropertyRepairOrder> createPropertyRepairOrder(@PathVariable("propertyId") int propertyId,
                                                                             @Valid
                                                                             @RequestBody PropertyRepairOrder propertyRepairOrder) {
-        return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder,propertyId);
+        return propertyRepairOrderService.createPropertyRepairOrder(propertyRepairOrder, propertyId);
     }
 
     /**
      * Get an integer of property owner id and search it from the service's repository.
+     *
      * @param propertyOwnerId an integer of property owner id
      * @return a response result of a list of objects of class property repair order
      */
@@ -46,6 +48,7 @@ public class PropertyRepairOrderController {
 
     /**
      * Get a string of date and search it from service's repository.
+     *
      * @param firstDate a string of date
      * @return a response result of a list of objects of class property repair order
      */
@@ -57,7 +60,8 @@ public class PropertyRepairOrderController {
 
     /**
      * Get two strings of dates and makes a search for property repair orders into service's repository.
-     * @param firstDate a string of date
+     *
+     * @param firstDate  a string of date
      * @param secondDate a string of date
      * @return a response result of a list of objects of class property repair order
      */
@@ -71,6 +75,7 @@ public class PropertyRepairOrderController {
 
     /**
      * Get an integer of property repair order id and search it from service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @return a response result of an object of PropertyRepairOrder
      */
@@ -81,8 +86,9 @@ public class PropertyRepairOrderController {
 
     /**
      * Get an integer of property repair order id, get an object of PropertyRepairOrder and update the property repair order into the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
-     * @param propertyRepairOrder an object ofPropertyRepairOrder
+     * @param propertyRepairOrder   an object ofPropertyRepairOrder
      * @return a response result of an object of PropertyRepairOrder
      */
     @PutMapping(value = "/{propertyRepairOrderId}")
@@ -94,9 +100,10 @@ public class PropertyRepairOrderController {
     /**
      * Get an integer of property repair order id, get an object of PropertyRepairOrder, get an integer of property id
      * and update the property repair order into the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
-     * @param propertyId an integer for property id
-     * @param propertyRepairOrder an object ofPropertyRepairOrder
+     * @param propertyId            an integer for property id
+     * @param propertyRepairOrder   an object ofPropertyRepairOrder
      * @return a response result of an object of PropertyRepairOrder
      */
     @PutMapping(value = "/{propertyRepairOrderId}/property/{propertyId}")
@@ -108,6 +115,7 @@ public class PropertyRepairOrderController {
 
     /**
      * Get an integer of property repair order id and delete the property repair order from the service's repository.
+     *
      * @param propertyRepairOrderId an integer of property repair order id
      * @return a response result of an object of Boolean
      */

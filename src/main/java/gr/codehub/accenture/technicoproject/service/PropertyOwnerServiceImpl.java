@@ -97,7 +97,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         PropertyOwner propertyOwner;
         try {// looping through the database to find owner with specific vat number
             propertyOwner = propertyOwnerRepository.findByVatNumber(propertyOwnerVAT);
-        } catch(Exception e) {// for an unhandled exception
+        } catch (Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -129,7 +129,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding email
             propertyOwner = propertyOwnerRepository.findByEmail(propertyOwnerEmail);
-        } catch(Exception e) {// for an unhandled exception
+        } catch (Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -160,8 +160,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding id number
             propertyOwner = propertyOwnerRepository.findByPropertyOwnerIdEquals(propertyOwnerId);
-        }
-        catch(Exception e) {// for an unhandled exception
+        } catch (Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -171,7 +170,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             log.error("Property owner was not found.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with id:" + propertyOwnerId);
-         }
+        }
         log.info("Property owner was successfully found.");
         log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
@@ -202,7 +201,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info(LINE_DELIMITER);
 
         // check if all details of the owner are null, if yes throw an error
-        if (    propertyOwner.getVatNumber() == null &&
+        if (propertyOwner.getVatNumber() == null &&
                 propertyOwner.getPhoneNumber() == null &&
                 propertyOwner.getPassword() == null &&
                 propertyOwner.getUsername() == null &&
@@ -323,8 +322,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             if (propertyOwnerRepository.findByUsername(propertyOwner.getUsername()) == null) {
                 if (propertyOwner.getUsername() != null)
                     propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
-            }
-            else {
+            } else {
                 log.error("Username already exists.");
                 log.info(LINE_DELIMITER);
                 return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The username already exists.");
