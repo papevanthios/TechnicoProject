@@ -1,0 +1,721 @@
+{
+	"info": {
+		"_postman_id": "0f1e2482-3cb8-4755-8626-980394ce4626",
+		"name": "TechnicoCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Presentation",
+			"item": [
+				{
+					"name": "Owner's Page",
+					"item": [
+						{
+							"name": "CreateOwner1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vatNumber\": \"000000001\",\r\n    \"firstName\": \"Manthos\",\r\n    \"lastName\": \"Papadopoulos\",\r\n    \"address\": \"Athens\",\r\n    \"phoneNumber\": \"2100000001\",\r\n    \"email\": \"some@mail.com\",\r\n    \"username\": \"manthos\",\r\n    \"password\": \"papadopoulos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyOwner",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateOwner2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vatNumber\": \"000000002\",\r\n    \"firstName\": \"Aris\",\r\n    \"lastName\": \"Giotis\",\r\n    \"address\": \"Athens\",\r\n    \"phoneNumber\": \"2100000002\",\r\n    \"email\": \"aris@mail.com\",\r\n    \"username\": \"Aris\",\r\n    \"password\": \"Giotis\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyOwner",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateOwner3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vatNumber\": \"000000003\",\r\n    \"firstName\": \"Konstantinos\",\r\n    \"lastName\": \"Preketes\",\r\n    \"address\": \"Athens\",\r\n    \"phoneNumber\": \"2100000003\",\r\n    \"email\": \"konstantinos@mail.com\",\r\n    \"username\": \"Konstantinos\",\r\n    \"password\": \"Preketes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyOwner",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateOwner with same vatNumber",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vatNumber\": \"000000002\",\r\n    \"firstName\": \"Aris\",\r\n    \"lastName\": \"Giotis\",\r\n    \"address\": \"Athens\",\r\n    \"phoneNumber\": \"2100000002\",\r\n    \"email\": \"aris@mail.com\",\r\n    \"username\": \"Aris\",\r\n    \"password\": \"Giotis\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyOwner",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchOwner with vatNumber",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyOwner/vatNumber/000000002",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"vatNumber",
+										"000000002"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchOwner with email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyOwner/email/some@mail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"email",
+										"some@mail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchOwner with wrong email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyOwner/email/maria@mail.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"email",
+										"maria@mail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateOwner with id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vatNumber\": \"123456789\",\r\n    \"address\": \"Patras\",\r\n    \"email\": \"manthos@mail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyOwner/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOwner with no properties",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyOwner/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Property Page",
+					"item": [
+						{
+							"name": "CreateProperty1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"propertyIdentificationNumber\": 120001,\r\n    \"propertyAddress\": \"Arkadias 1\",\r\n    \"yearOfConstruction\": 1985,\r\n    \"propertyType\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/property/propertyOwner/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"propertyOwner",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateProperty2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"propertyIdentificationNumber\": 120002,\r\n    \"propertyAddress\": \"Arkadias 2\",\r\n    \"yearOfConstruction\": 2015,\r\n    \"propertyType\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/property/propertyOwner/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"propertyOwner",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateProperty3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"propertyIdentificationNumber\": 120003,\r\n    \"propertyAddress\": \"Arkadias 3\",\r\n    \"yearOfConstruction\": 1990,\r\n    \"propertyType\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/property/propertyOwner/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"propertyOwner",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteOwner with properties",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyOwner/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyOwner",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchProperty with identificationNumber",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/property/propertyIdNumber/120001",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"propertyIdNumber",
+										"120001"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchProperty with vatNumber of Owner",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/property/vatNumber/123456789",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"vatNumber",
+										"123456789"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateProperty fields with id",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"propertyIdentificationNumber\": 10000,\r\n    \"yearOfConstruction\": 2000,\r\n    \"propertyType\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/property/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateProperty fields and owner with ids",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"yearOfConstruction\": 1990\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/property/1/propertyOwner/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"1",
+										"propertyOwner",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteProperty with no repairs",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/property/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Repair Order Page",
+					"item": [
+						{
+							"name": "CreatePropertyRepairOrder1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateOfScheduledRepair\": \"2022-03-30T00:00:00\",\r\n    \"repairStatus\": 0,\r\n    \"repairType\": 0,\r\n    \"costOfRepair\": 110,\r\n    \"description\": \"We need to fix it.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/property/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"property",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreatePropertyRepairOrder2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateOfScheduledRepair\": \"2022-03-30T00:00:00\",\r\n    \"repairStatus\": 0,\r\n    \"repairType\": 1,\r\n    \"costOfRepair\": 220,\r\n    \"description\": \"We need to fix it.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/property/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"property",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreatePropertyRepairOrder3",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateOfScheduledRepair\": \"2022-03-30T00:00:00\",\r\n    \"repairStatus\": 0,\r\n    \"repairType\": 2,\r\n    \"costOfRepair\": 330,\r\n    \"description\": \"We need to fix it.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/property/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"property",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreatePropertyRepairOrder no property found",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dateOfScheduledRepair\": \"2022-03-30T00:00:00\",\r\n    \"repairStatus\": 0,\r\n    \"repairType\": 1,\r\n    \"costOfRepair\": 220,\r\n    \"description\": \"We need to fix it.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/property/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"property",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteProperty with repairs",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/property/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"property",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchRepairOrders with owner's id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/useId/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"useId",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchRepairOrders with date",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/date/2022-03-23",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"date",
+										"2022-03-23"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SearchRepairOrders with rangeOfDates",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/rangeOfDates/2022-03-10/2022-03-30",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"rangeOfDates",
+										"2022-03-10",
+										"2022-03-30"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateRepairOrder fields and property with ids",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"repairStatus\": 2,\r\n    \"description\": \"Done\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/1/property/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"1",
+										"property",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteRepairOrder with id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"repairStatus\": 2,\r\n    \"description\": \"Done\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8001/propertyRepairOrder/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8001",
+									"path": [
+										"propertyRepairOrder",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
