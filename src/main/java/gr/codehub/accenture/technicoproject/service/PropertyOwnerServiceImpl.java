@@ -88,11 +88,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by VAT number...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through the database to find owner with specific vat number
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
-                    propertyOwner = propertyOwnerRep;
+            propertyOwner = propertyOwnerRepository.findByVatNumber(propertyOwnerVAT);
         } catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
