@@ -25,6 +25,36 @@ Functionalities:
     * Delete Order
 
 ---
+### Set of endpoints created:
+* Owner’s Endpoints
+    * Creating Owner
+    * Searching Owner with ID
+    * Searching Owner with VAT Number
+    * Searching Owner with Email
+    * Updating Owner fields
+    * Updating Owner fields & Property
+    * Deleting Owner with no Properties
+
+* Property Endpoints
+    * Creating Property
+    * Searching Property with ID
+    * Searching Property with VAT Number of Owner
+    * Searching Property with Identification Number of Property
+    * Updating Property fields
+    * Updating Property fields & Owner
+    * Deleting Property with no Repairs
+
+* Repair Order Endpoints
+    * Creating Repair Order
+    * Searching Repair Order with ID
+    * Searching Repair Order with Owner’s ID
+    * Searching Repair Order with Date
+    * Searching Repair Order with range of Dates
+    * Updating Repair Order fields
+    * Updating Repair Order fields & Property
+    * Deleting Repair Order
+
+---
 ### Technologies used:
 * IntelliJ
 * Postman
@@ -37,8 +67,27 @@ Functionalities:
 ### Requirements
 Technico project requires the following to run:
 * JDK 17 or newer.
-* Spring Framework
+* Java Spring Framework
+* Database: Use of MS SQl Server
+* IDE: IntelliJ Community Edition
 
 ---
 ### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+---
+Special Thanks...
+** Special Thanks to our Instructors from Codehub: **
+* Constantinos Giannacoulis
+* Dimitris Iracleous
+* Ioannis Daniil
+* Ioannis Klian
+* Ioannis Nikolakopoulos
+* Thomas Varsamidis
+
+** Special Thanks to Accenture: **
+* Ioannis Kounis
+* Olga Naoum
+* Panagiotis Kossioris
+
+
