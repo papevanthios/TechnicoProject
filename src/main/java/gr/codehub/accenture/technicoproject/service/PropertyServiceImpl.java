@@ -41,9 +41,9 @@ public class PropertyServiceImpl implements PropertyService {
 
         Property propertyRep;
         propertyRep = propertyRepository.findByPropertyIdentificationNumber(property.getPropertyIdentificationNumber());
-        if (propertyRep != null){
+        if (propertyRep != null) {
             log.error("Property was already created.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "Property was already created with identificationNumber:" + property.getPropertyIdentificationNumber());
         }
 
@@ -85,17 +85,16 @@ public class PropertyServiceImpl implements PropertyService {
         Property property;
         try {
             property = propertyRepository.findByPropertyIdEquals(propertyId);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("An error occurred during searching in DB.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         // Check if property exists and if so it is returned.
         if (property == null) {
             log.error("Property was not found.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found with id:" + propertyId);
         }
         log.info("Property was found.");
@@ -119,17 +118,16 @@ public class PropertyServiceImpl implements PropertyService {
         Property property;
         try {
             property = propertyRepository.findByPropertyIdentificationNumber(propertyIdNumber);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("An error occurred during searching in DB.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
         }
 
         // Check if property exists and if so it is returned.
         if (property == null) {
             log.error("Property was not found.");
-            log.error(LINE_DELIMITER);
+            log.info(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_NOT_FOUND, "Property was not found with identificationNumber:" + propertyIdNumber);
         }
         log.info("Property was found.");

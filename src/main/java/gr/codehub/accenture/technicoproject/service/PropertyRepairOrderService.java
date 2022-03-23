@@ -40,6 +40,7 @@ public interface PropertyRepairOrderService {
 
     /**
      * Get a string of date and search it from service's repository.
+     *
      * @param firstDate a string of date
      * @return a response result of a list of objects of class property repair order
      */

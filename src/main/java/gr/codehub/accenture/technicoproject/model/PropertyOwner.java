@@ -48,7 +48,7 @@ public class PropertyOwner {
     private String email;
 
     @NotNull(message = "Username cannot be null")
-    @Column
+    @Column(unique = true)
     private String username;
 
     @NotNull(message = "Password cannot be null")

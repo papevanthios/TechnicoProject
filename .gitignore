@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-#added by hand manthos suggestion for .idea
 .idea/**
+.mvn/**
+*/mvnw
+*/mvnw.cmd
 src/main/resources/application.yml

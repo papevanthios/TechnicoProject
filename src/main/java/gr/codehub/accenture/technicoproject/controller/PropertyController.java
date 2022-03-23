@@ -22,18 +22,20 @@ public class PropertyController {
     /**
      * Creating property, checking the fields for null and
      * then saving it to the repository.
-     * @param property property information
+     *
+     * @param property        property information
      * @param propertyOwnerId property owner ID
      * @return a response result with appropriate message
      */
     @PostMapping("/propertyOwner/{propertyOwnerId}")
     public ResponseResultDto<Property> createProperty(@Valid @RequestBody Property property,
-                                                      @PathVariable ("propertyOwnerId") int propertyOwnerId) {
+                                                      @PathVariable("propertyOwnerId") int propertyOwnerId) {
         return propertyService.createProperty(property, propertyOwnerId);
     }
 
     /**
      * Searching property by property ID (if exists).
+     *
      * @param propertyId property ID
      * @return a response result with appropriate message
      */
@@ -44,6 +46,7 @@ public class PropertyController {
 
     /**
      * Searching property by property identification number (if exists).
+     *
      * @param propertyIdNumber property identification number
      * @return a response result with appropriate message
      */
@@ -54,6 +57,7 @@ public class PropertyController {
 
     /**
      * Searching properties by property owner's VAT number (if exist).
+     *
      * @param propertyOwnerVAT property owner's VAT number
      * @return a response result with appropriate message
      */
@@ -66,8 +70,9 @@ public class PropertyController {
      * Updating property fields (except for property owner),
      * by checking every possible field for user input,
      * and then saving it to the repository.
+     *
      * @param propertyId property ID
-     * @param property property information
+     * @param property   property information
      * @return a response result with appropriate message
      */
     @PutMapping("/{propertyId}")
@@ -80,9 +85,10 @@ public class PropertyController {
      * Updating property fields (including property owner),
      * by checking every possible field for user input,
      * and then saving it to the repository.
-     * @param propertyId property ID
+     *
+     * @param propertyId      property ID
      * @param propertyOwnerId property owner ID
-     * @param property property information
+     * @param property        property information
      * @return a response result with appropriate message
      */
     @PutMapping("/{propertyId}/propertyOwner/{propertyOwnerId}")
@@ -94,6 +100,7 @@ public class PropertyController {
 
     /**
      * Deleting property if there is not any repair.
+     *
      * @param propertyIdNumber property identification number
      * @return a response result with appropriate message
      */
