@@ -15,4 +15,5 @@ public interface PropertyOwnerRepository extends JpaRepository<PropertyOwner, In
     PropertyOwner findByVatNumber(String vatNumber);
     PropertyOwner findByPhoneNumber(String phoneNumber);
     PropertyOwner findByEmail(String email);
+    PropertyOwner findByUsername(String username);
 }

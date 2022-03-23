@@ -62,6 +62,13 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that email:" + propertyOwner.getEmail());
         }
 
+        propertyOwnerRep = propertyOwnerRepository.findByUsername(propertyOwner.getUsername());
+        if (propertyOwnerRep != null) {
+            log.error("Property owner was already created.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that username:" + propertyOwner.getUsername());
+        }
+
         try {// save the owner in database
             propertyOwnerRepository.save(propertyOwner);
         } catch (Exception e) {// in case of unhandled exception
@@ -195,7 +202,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info(LINE_DELIMITER);
 
         // check if all details of the owner are null, if yes throw an error
-        if (propertyOwner.getVatNumber() == null &&
+        if (    propertyOwner.getVatNumber() == null &&
                 propertyOwner.getPhoneNumber() == null &&
                 propertyOwner.getPassword() == null &&
                 propertyOwner.getUsername() == null &&
@@ -312,9 +319,16 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
         }
 
-        try {
-            if (propertyOwner.getUsername() != null)// username
-                propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
+        try {// username
+            if (propertyOwnerRepository.findByUsername(propertyOwner.getUsername()) == null) {
+                if (propertyOwner.getUsername() != null)
+                    propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
+            }
+            else {
+                log.error("Username already exists.");
+                log.info(LINE_DELIMITER);
+                return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The username already exists.");
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Username is incorrect.");
             log.error(LINE_DELIMITER);
