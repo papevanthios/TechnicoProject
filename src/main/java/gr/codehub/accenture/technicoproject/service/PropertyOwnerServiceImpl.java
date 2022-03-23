@@ -100,7 +100,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if there is no such owner throw an error
             log.error("Property owner is null.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with vatNumber:" + propertyOwnerVAT);
         }
         log.info("Property owner was successfully found by VAT number.");
         log.info(LINE_DELIMITER);
@@ -120,11 +120,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by email...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding email
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getEmail(), propertyOwnerEmail))
-                    propertyOwner = propertyOwnerRep;
+            propertyOwner = propertyOwnerRepository.findByEmail(propertyOwnerEmail);
         } catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
@@ -133,7 +131,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if there is no such owner throw an error
             log.error("Property owner is null.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with email:" + propertyOwnerEmail);
         }
         log.info("Property owner was successfully found by email.");
         log.info(LINE_DELIMITER);
