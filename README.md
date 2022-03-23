@@ -76,8 +76,8 @@ Technico project requires the following to run:
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ---
-Special Thanks...\
-** Special Thanks to our Instructors from Codehub: **
+### Special Thanks...\
+#### Special Thanks to our Instructors from Codehub:
 * Constantinos Giannacoulis
 * Dimitris Iracleous
 * Ioannis Daniil
@@ -85,7 +85,7 @@ Special Thanks...\
 * Ioannis Nikolakopoulos
 * Thomas Varsamidis
 
-** Special Thanks to Accenture: **
+#### Special Thanks to Accenture:
 * Ioannis Kounis
 * Olga Naoum
 * Panagiotis Kossioris
