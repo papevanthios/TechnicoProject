@@ -8,8 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class implements the interface for the Service of the property owner.
@@ -39,6 +40,35 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Creating a property owner...");
         log.info(LINE_DELIMITER);
 
+        PropertyOwner propertyOwnerRep;
+        propertyOwnerRep = propertyOwnerRepository.findByVatNumber(propertyOwner.getVatNumber());
+        if (propertyOwnerRep != null) {
+            log.error("Property owner was already created.");
+            log.error(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that vatNumber:" + propertyOwner.getVatNumber());
+        }
+
+        propertyOwnerRep = propertyOwnerRepository.findByPhoneNumber(propertyOwner.getPhoneNumber());
+        if (propertyOwnerRep != null) {
+            log.error("Property owner was already created.");
+            log.error(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that phoneNumber:" + propertyOwner.getPhoneNumber());
+        }
+
+        propertyOwnerRep = propertyOwnerRepository.findByEmail(propertyOwner.getEmail());
+        if (propertyOwnerRep != null) {
+            log.error("Property owner was already created.");
+            log.error(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that email:" + propertyOwner.getEmail());
+        }
+
+        propertyOwnerRep = propertyOwnerRepository.findByUsername(propertyOwner.getUsername());
+        if (propertyOwnerRep != null) {
+            log.error("Property owner was already created.");
+            log.info(LINE_DELIMITER);
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_ALREADY_EXISTS, "Property owner was already created with that username:" + propertyOwner.getUsername());
+        }
+
         try {// save the owner in database
             propertyOwnerRepository.save(propertyOwner);
         } catch (Exception e) {// in case of unhandled exception
@@ -64,12 +94,10 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by VAT number...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through the database to find owner with specific vat number
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getVatNumber(), propertyOwnerVAT))
-                    propertyOwner = propertyOwnerRep;
-        } catch (Exception e) {// for an unhandled exception
+            propertyOwner = propertyOwnerRepository.findByVatNumber(propertyOwnerVAT);
+        } catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -78,7 +106,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if there is no such owner throw an error
             log.error("Property owner is null.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with vatNumber:" + propertyOwnerVAT);
         }
         log.info("Property owner was successfully found by VAT number.");
         log.info(LINE_DELIMITER);
@@ -98,12 +126,10 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by email...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding email
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getEmail(), propertyOwnerEmail))
-                    propertyOwner = propertyOwnerRep;
-        } catch (Exception e) {// for an unhandled exception
+            propertyOwner = propertyOwnerRepository.findByEmail(propertyOwnerEmail);
+        } catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -111,7 +137,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if there is no such owner throw an error
             log.error("Property owner is null.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with email:" + propertyOwnerEmail);
         }
         log.info("Property owner was successfully found by email.");
         log.info(LINE_DELIMITER);
@@ -131,12 +157,11 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info("Searching property owner by his/her id...");
         log.info(LINE_DELIMITER);
 
-        PropertyOwner propertyOwner = null;
+        PropertyOwner propertyOwner;
         try {// looping through database to find owner with corresponding id number
-            for (PropertyOwner propertyOwnerRep : propertyOwnerRepository.findAll())
-                if (Objects.equals(propertyOwnerRep.getPropertyOwnerId(), propertyOwnerId))
-                    propertyOwner = propertyOwnerRep;
-        } catch (Exception e) {// for an unhandled exception
+            propertyOwner = propertyOwnerRepository.findByPropertyOwnerIdEquals(propertyOwnerId);
+        }
+        catch(Exception e) {// for an unhandled exception
             log.error("Exception enabled.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.ERROR, "An error occurred.");
@@ -145,8 +170,8 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         if (propertyOwner == null) {// if no such owner exists throw an error
             log.error("Property owner was not found.");
             log.error(LINE_DELIMITER);
-            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found.");
-        }
+            return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_NOT_FOUND, "The property owner was not found with id:" + propertyOwnerId);
+         }
         log.info("Property owner was successfully found.");
         log.info(LINE_DELIMITER);
         return new ResponseResultDto<>(propertyOwner, ResponseStatus.SUCCESS, "The property owner was found.");
@@ -177,7 +202,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         log.info(LINE_DELIMITER);
 
         // check if all details of the owner are null, if yes throw an error
-        if (propertyOwner.getVatNumber() == null &&
+        if (    propertyOwner.getVatNumber() == null &&
                 propertyOwner.getPhoneNumber() == null &&
                 propertyOwner.getPassword() == null &&
                 propertyOwner.getUsername() == null &&
@@ -210,8 +235,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
         // Check every possible field for user input, and update it. If a field is inserted then set it.
         try {
-            if (propertyOwner.getVatNumber() != null)// vat number
-                propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
+            if (propertyOwner.getVatNumber() != null) {
+                String regex = "^\\d{9}$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getVatNumber());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setVatNumber(propertyOwner.getVatNumber());
+                else {
+                    log.error("Vat number is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The vat number is incorrect.");
+                }
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("VAT number is incorrect.");
             log.error(LINE_DELIMITER);
@@ -246,8 +281,19 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         try {
-            if (propertyOwner.getPhoneNumber() != null)// phone number
-                propertyOwnerOpt.get().setPhoneNumber(propertyOwner.getPhoneNumber());
+            if (propertyOwner.getPhoneNumber() != null) {
+                String regex = "^\\d{10}$";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getPhoneNumber());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setPhoneNumber(propertyOwner.getPhoneNumber());
+                else {
+                    log.error("Phone number is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The phone number is incorrect.");
+                }
+            }
+
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Phone number is incorrect.");
             log.error(LINE_DELIMITER);
@@ -255,17 +301,34 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
 
         try {
-            if (propertyOwner.getEmail() != null)// email
-                propertyOwnerOpt.get().setEmail(propertyOwner.getEmail());
+            if (propertyOwner.getEmail() != null) {
+                String regex = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(propertyOwner.getEmail());
+                if (matcher.matches())
+                    propertyOwnerOpt.get().setEmail(propertyOwner.getEmail());
+                else {
+                    log.error("Email is incorrect.");
+                    log.error(LINE_DELIMITER);
+                    return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
+                }
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Email is incorrect.");
             log.error(LINE_DELIMITER);
             return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The email is incorrect.");
         }
 
-        try {
-            if (propertyOwner.getUsername() != null)// username
-                propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
+        try {// username
+            if (propertyOwnerRepository.findByUsername(propertyOwner.getUsername()) == null) {
+                if (propertyOwner.getUsername() != null)
+                    propertyOwnerOpt.get().setUsername(propertyOwner.getUsername());
+            }
+            else {
+                log.error("Username already exists.");
+                log.info(LINE_DELIMITER);
+                return new ResponseResultDto<>(null, ResponseStatus.PROPERTY_OWNER_INFORMATION_IS_INCORRECT, "The username already exists.");
+            }
         } catch (Exception e) {// if value cannot be set throw an error message
             log.error("Username is incorrect.");
             log.error(LINE_DELIMITER);
