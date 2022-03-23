@@ -10,7 +10,7 @@ import java.util.List;
  *
  * Services:
  *      Create property repair order.
- *      Search property repair orders with property owner id.
+ *      Search property repair orders by property owner id.
  *      Search property repair orders by date.
  *      Search property repair orders by range of dates.
  *      Search property repair order by property repair order id.
